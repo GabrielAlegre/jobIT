@@ -1,13 +1,12 @@
 export const environment = {
     firebase: {
-        "projectId": "job-it-c9bad",
-        "appId": "1:1043041625849:web:b9c2a1bbc4d5a6ffefe428",
-        "storageBucket": "job-it-c9bad.appspot.com",
-        "locationId": "southamerica-east1",
-        "apiKey": "AIzaSyAl3FheYFgDtc9SfZyLQ4iwmQRrg6w4G1w",
-        "authDomain": "job-it-c9bad.firebaseapp.com",
-        "messagingSenderId": "1043041625849",
-        "measurementId": "G-89R05QX8RL"
+        apiKey: "AIzaSyAV5iCTyXcjcV5auUy5l0rY1Yp9Gxd0i0Q",
+        authDomain: "jobit-cd440.firebaseapp.com",
+        projectId: "jobit-cd440",
+        storageBucket: "jobit-cd440.appspot.com",
+        messagingSenderId: "292696592994",
+        appId: "1:292696592994:web:1f7caffaca972b6169b73b",
+        measurementId: "G-3DVWM2N54R"
     },
     validacion: {
         correo: '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$',
