@@ -1,0 +1,77 @@
+<div class="main centrado">
+    <form class="container mis-datos-form bounce-in-top" (ngSubmit)="enviarForm()" [formGroup]="form"
+        autocomplete="off">
+        <!-- <h2 class="text-info">Tarjeta</h2> -->
+        <h2 class="text-info">
+            Tarjeta
+            <a class="btn btn-outline-info" [routerLink]="[('/mis-tarjetas/listar-tarjetas'| rutaValida)]">
+                Listar
+            </a>
+        </h2>
+        <div class="row">
+            <div class="col col-12 col-md-4">
+                <div class="form-floating mb-3">
+                    <select class="form-select" aria-label="Default select example"
+                        [formControlName]="formControlName('tipo')">
+                        @for(tipo of tipos; track tipo){
+                        <option [value]="tipo" [innerHTML]="tipo | titlecase"></option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col col-12 col-md-8">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="nombre"
+                        [formControlName]="formControlName('nombre')">
+                    <label for="nombre">nombre</label>
+                    <span class="form-text text-danger" [innerHTML]="messageError('nombre')">
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="numero" name="numero" placeholder="numero"
+                        [formControlName]="formControlName('numero')">
+                    <label for="numero">numero</label>
+                    <span class="form-text text-danger" [innerHTML]="messageError('numero')">
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12 col-md-4">
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="codigoDeSeguridad" name="codigoDeSeguridad"
+                        placeholder="codigoDeSeguridad" [formControlName]="formControlName('codigoDeSeguridad')">
+                    <label for="codigoDeSeguridad">codigoDeSeguridad</label>
+                    <span class="form-text text-danger" [innerHTML]="messageError('codigoDeSeguridad')">
+                    </span>
+                </div>
+            </div>
+            <div class="col col-12 col-md-4">
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="mesDeVencimiento" name="mesDeVencimiento"
+                        placeholder="mesDeVencimiento" [formControlName]="formControlName('mesDeVencimiento')">
+                    <label for="mesDeVencimiento">mes de vencimiento</label>
+                    <span class="form-text text-danger" [innerHTML]="messageError('mesDeVencimiento')">
+                    </span>
+                </div>
+            </div>
+            <div class="col col-12 col-md-4">
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="anioDeVencimiento" name="anioDeVencimiento"
+                        placeholder="anioDeVencimiento" [formControlName]="formControlName('anioDeVencimiento')">
+                    <label for="anioDeVencimiento">año de vencimiento</label>
+                    <span class="form-text text-danger" [innerHTML]="messageError('anioDeVencimiento')">
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix my-4">
+            <button type="submit" class="button-86 me-2 float-end" [innerHTML]="titulo">
+            </button>
+        </div>
+    </form>
+</div>

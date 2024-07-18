@@ -1,0 +1,8 @@
+.selected-card {
+    border: 2px solid #050038; /* Verde como Bootstrap's success */
+    background-color: #198754 !important; /* Fondo verde igual que bg-success */
+    transform: scale(1.05); /* Agranda ligeramente */
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Transición suave */
+
+  }
+  

@@ -1,0 +1,109 @@
+<div class="main centrado">
+    <div class="container">
+        <h2 class="text-info">
+            Mis Publicaciones
+            <a class="btn btn-outline-info" [routerLink]="[('/mis-publicaciones/agregar-publicacion'| rutaValida)]">
+                Agregar
+            </a>
+        </h2>
+        <div class="form-check form-check-inline mb-3">
+            <input class="form-check-input" type="checkbox" name="activas" id="activas"
+                (change)="actualizarFiltroEstado(estadoDisponiblesParaFiltrar.activa, $event)" checked>
+            <label class="form-check-label" for="activas">Activas</label>
+        </div>
+        <div class="form-check form-check-inline mb-3">
+            <input class="form-check-input" type="checkbox" name="finalizadas" id="finalizadas"
+                (change)="actualizarFiltroEstado(estadoDisponiblesParaFiltrar.finalizada, $event)">
+            <label class="form-check-label" for="finalizadas">Finalizadas</label>
+        </div>
+        <div class="form-check form-check-inline mb-3">
+            <input class="form-check-input" type="checkbox" name="pausadas" id="pausadas"
+                (change)="actualizarFiltroEstado(estadoDisponiblesParaFiltrar.pausada, $event)">
+            <label class="form-check-label" for="pausadas">Pausadas</label>
+        </div>
+
+        <div class="table-responsive">
+            @if(this.publicacionesFiltradas?.length){
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th>
+                            <i class="bi bi-card-checklist"></i>
+                            Titulo
+                        </th>
+                        <th>
+                            <i class="bi bi-people"></i>
+                            Forma de trabajo
+                        </th>
+                        <th>
+                            <i class="bi bi-clock"></i>
+                            Tiempo de trabajo
+                        </th>
+                        <th>
+                            <i class="bi bi-person"></i>
+                            Nivel
+                        </th>
+                        <th>
+                            <i class="bi bi-currency-dollar"></i>
+                            Salario
+                        </th>
+                        <th>
+                            <i class="bi bi-info-square"></i>
+                            Estado
+                        </th>
+                        <th>
+                            <i class="bi bi-gear"></i>
+                            Acciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (publicacion of publicacionesFiltradas; track $index) {
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <span [innerHTML]="publicacion.title"></span>
+                                <span
+                                    *ngIf="notificaciones?.get(publicacion.id!)?.cantidad! > 0 && notificaciones?.get(publicacion.id!)?.notificacionEmpresa"
+                                    class="badge bg-danger ms-2 rounded-pill">
+                                    {{ notificaciones.get(publicacion.id!)?.cantidad }}
+                                </span>
+                            </div>
+                        </td>
+                        <td [innerHTML]="publicacion.formasDeTrabajo"></td>
+                        <td [innerHTML]="publicacion.tiempoDeTrabajo"></td>
+                        <td [innerHTML]="publicacion.nivel"></td>
+                        <td [innerHTML]="publicacion.salario"></td>
+                        <td [innerHTML]="publicacion.estado"></td>
+                        <td>
+                            <button type="button" class="btn btn-outline-success mx-2"
+                                [routerLink]="('/publicacion/ver-postulantes' | rutaValida) +'/'+ publicacion.id">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <a class="btn btn-outline-primary mx-2"
+                                [routerLink]="('/mis-publicaciones/modificar-publicacion' | rutaValida) +'/'+ publicacion.id">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <button type="button" class="btn mx-2"
+                                [ngClass]="publicacion.estado === estadoDisponiblesParaFiltrar.pausada ? 'btn btn-outline-info' : 'btn-outline-warning'"
+                                (click)="pausarPublicacion(publicacion)">
+                                <i
+                                    [ngClass]="publicacion.estado === estadoDisponiblesParaFiltrar.pausada ? 'bi bi-play-fill' : 'bi bi-pause-fill'"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-danger mx-2"
+                                (click)="eliminarPublicacion(publicacion)">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            } @else {
+            <h1 class="text-warning text-center">
+                No hay publicaciones para mostrar.
+            </h1>
+            }
+        </div>
+    </div>
+</div>

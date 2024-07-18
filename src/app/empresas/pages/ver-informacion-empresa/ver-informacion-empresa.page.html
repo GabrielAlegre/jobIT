@@ -1,0 +1,33 @@
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card w-75">
+        <div class="card-header">
+            <h5 class="card-title">Información de la empresa</h5>
+        </div>
+        <div class="card-body">
+            <div class="d-flex flex-column align-items-center">
+                <img class="card-img-top rounded-circle mx-auto mt-3" src={{empresaQuePublico?.pathFoto}}
+                    alt="Foto del empleado" style="width: 100px;">
+                <h5 class="card-title"> {{empresaQuePublico?.nombre}} </h5>
+            </div>
+            <p class="card-text">
+                <i class="bi bi-envelope me-2"></i> <strong>Correo:</strong> {{empresaQuePublico?.correo}}
+            </p>
+            <p class="card-text">
+                <i class="bi bi-person-circle me-2"></i>
+                <strong>CUIT:</strong> {{empresaQuePublico?.cuit}}
+            </p>
+            <p class="card-text">
+                <i class="bi bi-telephone me-2"></i>
+                <strong>Telefono:</strong> {{empresaQuePublico?.telefono}}
+            </p>
+            <p class="card-text">
+                <i class="bi bi-geo-alt me-2"></i>
+                <strong>Ubicacion:</strong> {{empresaQuePublico?.provincia}}, {{empresaQuePublico?.localidad}}
+            </p>
+            <p class="card-text">
+                <i class="bi bi-house-door me-2"></i>
+                <strong>Domicilio:</strong> {{empresaQuePublico?.domicilio}}
+            </p>
+        </div>
+    </div>
+</div>

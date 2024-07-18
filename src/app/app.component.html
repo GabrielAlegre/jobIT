@@ -1,0 +1,7 @@
+@if(mostrarSpinner){
+    <shared-spinner/>
+}
+
+<div [ngStyle]="{'visibility': mostrarSpinner ? 'hidden':'visible'}">
+    <router-outlet/>
+</div>

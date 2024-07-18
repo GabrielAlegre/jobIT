@@ -1,0 +1,61 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "styles/components/";
+@import "styles/animations/";
+
+.main {
+    min-width: 100wh;
+    min-height: 100vh;
+}
+
+.centrado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.dropdown-item {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    padding-left: 0;
+}
+
+.auth-form {
+    max-width: 500px;
+}
+
+.mis-datos-form {
+    max-width: 800px;
+}
+
+textarea {
+    min-height: 150px !important;
+}
+
+@media (max-width: 768px) {
+    .centrado {
+        padding-top: 1.75rem;
+    }
+    .main {
+        padding-top: 1.75rem;
+    }
+}
+
+.form-check-label {
+    width: 100%;
+    cursor: pointer;
+}
+
+.form-floating > label {
+    z-index: 1;
+}

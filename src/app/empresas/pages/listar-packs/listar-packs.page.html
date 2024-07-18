@@ -1,0 +1,32 @@
+<div class="main centrado">
+    <div class="container">
+        <h2 class="text-info">
+            Mis packs
+            <a class="btn btn-outline-info" [routerLink]="[('/mis-packs/comprar-pack'| rutaValida)]">
+                Comprar
+            </a>
+        </h2>
+        <div class="table-responsive">
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th>Precio</th>
+                        <th>Nombre</th>
+                        <th>Cantidad de Publicaciones</th>
+                        <th>Publicaciones restantes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (pack of packs; track $index) {
+                    <tr>
+                        <td>$ <span [innerHTML]="pack.precio"></span></td>
+                        <td [innerHTML]="pack.nombre"></td>
+                        <td [innerHTML]="pack.cantidadDePublicaciones"></td>
+                        <td [innerHTML]="pack.cantidadDePublicacionesRestantes"></td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+.publicacion-card {
+    transition: transform 0.3s; /* Agregamos una transición suave */
+}
+
+.publicacion-card:hover {
+    transform: scale(1.05);
+    cursor: pointer; /* Ajustamos la escala para hacer un zoom ligeramente mayor al hacer hover */
+}

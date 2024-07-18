@@ -1,0 +1,35 @@
+<div class="main centrado">
+    <div class="row container">
+        @for (card of cards; track card.id; let idx = $index, par = $even) {
+            <div class="col col-12">
+                <div class="container py-5">
+                    <section
+                        class="row d-flex justify-content-center align-items-center"
+                        [ngClass]="par ? 'slide-in-blurred-right' : 'slide-in-blurred-left'"
+                    >
+                        <section class="col col-12 col-md-6">
+                            <article [ngClass]="par ? 'text-start' : 'text-end'">
+                                <h2 class="text-info h1">
+                                    <em [innerHTML]="card.title"></em>
+                                </h2>
+                                <p [innerHTML]="card.description"></p>
+                            </article>
+                        </section>
+                        <figure
+                            class="col col-12 col-md-6 d-flex"
+                            [ngClass]="par ? 'order-first justify-content-end' : 'justify-content-start'"
+                            >
+                            <img
+                                style="max-width: 400px; width: 100%;"
+                                class="text-end"
+                                [src]="card.src"
+                                [alt]="card.alt"
+                            >
+                        </figure>
+                    </section>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>

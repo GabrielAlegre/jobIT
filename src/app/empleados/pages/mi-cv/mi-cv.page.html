@@ -1,0 +1,53 @@
+<!-- Mostrar la imagen en un círculo -->
+<div class="main centrado">
+    <form
+        class="container mis-datos-form bounce-in-top"
+        (ngSubmit)="enviarForm()"
+        [formGroup]="form"
+        autocomplete="off"
+    >
+
+    @if (empleado?.pathCV) {
+        <div class="text-center">
+            <a
+            class="text-decoration-underline h1 d-block text-info"
+            [href]="empleado?.pathCV"
+            target="_blank"
+            >
+                Ver CV Actual
+            </a>
+        </div>
+    } @else {
+        <h3 class="text-warning text-center"><em>Sin CV</em></h3>
+    }
+
+    <label for="file" class="h5 mb-1 bt-3 cursor" (click)="input.click()" >
+        Ingrese una archivo
+    </label>
+    <input
+        #input
+        type="file"
+        id="fileInputEsp"
+        name="archivo"
+        [accept]="archivosValidos"
+        class="form-control cursor"
+        [formControlName]="formControlName('archivo')"
+        (change)="handleFoto($event)"
+    >
+    <span class="form-text text-danger"
+        [innerHTML]="messageError('archivo')"
+        >
+    </span>
+        <div class="clearfix mt-4">
+            <button type="submit" class="button-86 me-2 float-end">
+                @if(empleado?.pathCV){
+                    Actualizar
+                }@else {
+                    Agregar
+                }
+            </button>
+        </div>
+    </form>
+</div>
+
+

@@ -1,0 +1,38 @@
+<div class="main centrado">
+    <div class="container">
+        <h2 class="text-info">Mis suscripciones</h2>
+        <div class="table-responsive">
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th>
+                            <i class="bi bi-calendar-event"></i>
+                            Inicio
+                        </th>
+                        <th>
+                            <i class="bi bi-calendar-event"></i>
+                            Fin
+                        </th>
+                        <th>
+                            <i class="bi bi-card-checklist"></i>
+                            Nombre
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (suscripcion of pagos; track $index) {
+                    <tr>
+                        <td>{{ suscripcion.fecha | date: 'short' }}</td>
+                        <td>{{ suscripcion.fechaFin | date: 'short' }}</td>
+                        <td> {{suscripcion.descripcion}} </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-warning" role="alert">
+            <i class="bi bi-info-circle"></i> Para ver los precios ir a la sección "Mis Datos > Mis Pagos"
+        </div>
+
+    </div>
+</div>

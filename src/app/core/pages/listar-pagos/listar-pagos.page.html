@@ -1,0 +1,39 @@
+<div class="main centrado">
+    <div class="container">
+        <h2 class="text-info">Mis Pagos</h2>
+        <div class="table-responsive">
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th>
+                            <i class="bi bi-calendar-event"></i>
+                            Fecha
+                        </th>
+                        <th>
+                            <i class="bi bi-currency-dollar"></i>
+                            Precio
+                        </th>
+                        <th>
+                            <i class="bi bi-card-checklist"></i>
+                            Estado
+                        </th>
+                        <th>
+                            <i class="bi bi-credit-card-fill"></i>
+                            Tarjeta
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (pago of pagos; track $index) {
+                        <tr>
+                            <td [innerHTML]="pago.fecha | date"></td>
+                            <td [innerHTML]="pago.precio | currency:'$'"></td>
+                            <td [innerHTML]="pago.estado"></td>
+                            <td [innerHTML]="pago.numeroDeTarjeta"></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

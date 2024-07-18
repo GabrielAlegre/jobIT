@@ -1,0 +1,176 @@
+<div class="main centrado">
+    @if (puedePublicar || titulo === 'Actualizar'){
+        <form class="container mis-datos-form bounce-in-top" (ngSubmit)="altaPublicacion()" [formGroup]="form"
+        autocomplete="off">
+        <h2 class="text-info">
+            <span [innerHTML]="titulo"></span> oferta de empleo
+            <a class="btn btn-outline-info"
+                [routerLink]="[('/mis-publicaciones/listar-publicaciones'| rutaValida)]">
+                Listar
+            </a>
+        </h2>
+        <div class="row">
+            <div class="col col-12 col-md-12">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="title" name="title" placeholder="title"
+                        [formControlName]="formControlName('title')">
+                    <label for="title">Titulo de la publicación</label>
+                    <span class="form-text text-danger" [innerHTML]="messageError('title')">
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <div class="form-floating mb-3">
+                    <textarea
+                        class="form-control"
+                        name="descripcion"
+                        id="descripcion"
+                        [formControlName]="formControlName('description')"
+                    >
+
+                    </textarea>
+                    <label for="descripcion">descripcion</label>
+                    <span class="form-text text-danger"
+                        [innerHTML]="messageError('description')"
+                        >
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12 col-md-4">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="provincia"
+                        #provincias_
+                        (change)="traerLocalidades(provincias_.value)"
+                        [formControlName]="formControlName('provincia')">
+                        @for(provincia of provincias; track provincia){
+                            <option
+                                [value]="provincia"
+                                [innerHTML]="provincia | titlecase">
+                            </option>
+                        }
+                    </select>
+                    <label for="provincia">provincia</label>
+                    <span class="form-text text-danger"
+                        [innerHTML]="messageError('provincia')"
+                        >
+                    </span>
+                </div>
+            </div>
+            <div class="col col-12 col-md-4">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="localidad"
+                        [formControlName]="formControlName('localidad')">
+                        @for(localidades of localidades; track localidades){
+                            <option
+                                [value]="localidades"
+                                [innerHTML]="localidades | titlecase">
+                            </option>
+                        }
+                    </select>
+                    <label for="localidad">localidad</label>
+                    <span class="form-text text-danger"
+                        [innerHTML]="messageError('localidad')"
+                        >
+                    </span>
+                </div>
+            </div>
+            <div class="col col-12 col-md-4">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="domicilio" name="domicilio" placeholder="domicilio"
+                        [formControlName]="formControlName('domicilio')">
+                    <label for="domicilio">domicilio</label>
+                    <span class="form-text text-danger" [innerHTML]="messageError('domicilio')">
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="areaDeTrabajo"
+                        [formControlName]="formControlName('areaDeTrabajo')">
+                        @for(area of areasVisibles; track area.id){
+                            <option
+                                [value]="area.id"
+                                [innerHTML]="area.nombre.toString() | titlecase">
+                            </option>
+                        }
+                    </select>
+                    <label for="areaDeTrabajo">Area de trabajo</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="salario" name="salario" placeholder="salario"
+                        [formControlName]="formControlName('salario')">
+                    <label for="salario">Salario</label>
+                    <span class="form-text text-danger" [innerHTML]="messageError('salario')">
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12 col-md-4">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="formasDeTrabajo"
+                        [formControlName]="formControlName('formasDeTrabajo')">
+                        @for(forma of formasDeTrabajo; track forma){
+                            <option [value]="forma" [innerHTML]="forma | titlecase"></option>
+                        }
+                    </select>
+                    <label for="formasDeTrabajo">Formas de trabajo</label>
+                </div>
+            </div>
+            <div class="col col-12 col-md-4">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="nivel"
+                        [formControlName]="formControlName('nivel')">
+                        @for(nivel of niveles; track nivel){
+                            <option [value]="nivel" [innerHTML]="nivel | titlecase"></option>
+                        }
+                    </select>
+                    <label for="nivel">nivel</label>
+                </div>
+            </div>
+            <div class="col col-12 col-md-4">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="tiempoDeTrabajo"
+                        [formControlName]="formControlName('tiempoDeTrabajo')">
+                        @for(tiempo of tiempoDeTrabajo; track tiempo){
+                            <option [value]="tiempo" [innerHTML]="tiempo | titlecase"></option>
+                        }
+                    </select>
+                    <label for="tiempoDeTrabajo">Tiempo de trabajo</label>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix my-4">
+            <button type="submit"
+                class="button-86 me-2 float-end"
+                [innerHTML]="titulo"
+                >
+            </button>
+        </div>
+        </form>
+    } @else {
+        <div class="card text-white mb-3" style="max-width: 100rem; height: 25rem;">
+            <div class="card-header text-center">¡No tienes un Pack Activo!</div>
+            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                <h3 class="card-title text-center mb-3">No tienes publicaciones disponibles</h3>
+                <p class="card-text text-center mb-5" style="max-width: 80%;">
+                    Para poder publicar nuevas ofertas de empleo, necesitas adquirir un pack.
+                    ¡Compra un pack ahora y comienza a atraer al mejor talento para tu empresa!
+                </p>
+                <a href="/mis-packs/comprar-pack" class="btn btn-primary btn-lg" style="width: 100%;">
+                    Comprar Pack
+                </a>
+            </div>
+        </div>
+    }
+</div>

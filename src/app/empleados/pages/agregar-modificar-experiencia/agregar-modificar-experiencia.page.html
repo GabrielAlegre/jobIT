@@ -1,0 +1,112 @@
+<div class="main centrado">
+    <form
+        class="container mis-datos-form bounce-in-top"
+        (ngSubmit)="enviarForm()"
+        [formGroup]="form"
+        autocomplete="off"
+    >
+        <a class="btn btn-outline-info float-end"
+            [routerLink]="[('/mi-informacion/listar'| rutaValida), experiencia]">
+            Listar <span [innerHTML]="experiencia | titlecase"></span>s
+        </a>
+        <h2 class="text-info" [innerHTML]="experiencia | titlecase"></h2>
+        <div class="row">
+            <div class="col col-12 col-md-6">
+                <div class="form-floating mb-3">
+                    <input
+                        type="date"
+                        class="form-control"
+                        id="inicio"
+                        name="inicio"
+                        placeholder="inicio"
+                        [formControlName]="formControlName('inicio')"
+                    >
+                    <label for="inicio">inicio</label>
+                    <span class="form-text text-danger"
+                        [innerHTML]="messageError('inicio')"
+                        >
+                    </span>
+                </div>
+            </div>
+            <div class="col col-12 col-md-6">
+                <div class="form-floating mb-3">
+                    <input
+                        type="date"
+                        class="form-control"
+                        id="fin"
+                        name="fin"
+                        placeholder="fin"
+                        [formControlName]="formControlName('fin')"
+                    >
+                    <label for="fin">fin</label>
+                    <span class="form-text text-danger"
+                        [innerHTML]="messageError('fin')"
+                        >
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12 col-md-6">
+                <div class="form-floating mb-3">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="institucion"
+                        name="institucion"
+                        placeholder="institucion"
+                        [formControlName]="formControlName('institucion')"
+                    >
+                    <label for="institucion">institucion</label>
+                    <span class="form-text text-danger"
+                        [innerHTML]="messageError('institucion')"
+                        >
+                    </span>
+                </div>
+            </div>
+            <div class="col col-12 col-md-6">
+                <div class="form-floating mb-3">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="titulo"
+                        name="titulo"
+                        placeholder="titulo"
+                        [formControlName]="formControlName('titulo')"
+                    >
+                    <label for="titulo">titulo</label>
+                    <span class="form-text text-danger"
+                        [innerHTML]="messageError('titulo')"
+                        >
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <div class="form-floating mb-3">
+                    <textarea
+                        class="form-control"
+                        name="descripcion"
+                        id="descripcion"
+                        [formControlName]="formControlName('descripcion')"
+                    >
+                    </textarea>
+                    <label for="descripcion">descripcion</label>
+                    <span class="form-text text-danger"
+                        [innerHTML]="messageError('descripcion')"
+                        >
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix my-4">
+            <button
+                type="submit"
+                class="button-86 me-2 float-end"
+                [innerHTML]="titulo"
+            >
+            </button>
+        </div>
+    </form>
+</div>

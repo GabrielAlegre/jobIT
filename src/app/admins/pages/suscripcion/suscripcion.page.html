@@ -1,0 +1,69 @@
+<div class="main centrado">
+    <form
+        class="container mis-datos-form bounce-in-top"
+        (ngSubmit)="enviarForm()"
+        [formGroup]="form"
+        autocomplete="off"
+    >
+        <h2 class="text-info">Suscripción</h2>
+        <div class="row">
+            <div class="col col-12 col-md-6">
+                <div class="form-floating mb-3">
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="precio"
+                        name="precio"
+                        placeholder="precio"
+                        [formControlName]="formControlName('precio')"
+                    >
+                    <label for="precio">precio</label>
+                    <span class="form-text text-danger"
+                        [innerHTML]="messageError('precio')"
+                        >
+                    </span>
+                </div>
+            </div>
+            <div class="col col-12 col-md-6">
+                <div class="form-floating mb-3">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="nombre"
+                        name="nombre"
+                        placeholder="nombre"
+                        [formControlName]="formControlName('nombre')"
+                    >
+                    <label for="nombre">Nombre</label>
+                    <span class="form-text text-danger"
+                        [innerHTML]="messageError('nombre')"
+                        >
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <div class="form-floating mb-3">
+                    <textarea
+                        class="form-control"
+                        name="descripcion"
+                        id="descripcion"
+                        [formControlName]="formControlName('descripcion')"
+                    >
+
+                    </textarea>
+                    <label for="descripcion">descripcion</label>
+                    <span class="form-text text-danger"
+                        [innerHTML]="messageError('descripcion')"
+                        >
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix my-4">
+            <button type="submit" class="button-86 me-2 float-end">Actualizar</button>
+        </div>
+    </form>
+</div>

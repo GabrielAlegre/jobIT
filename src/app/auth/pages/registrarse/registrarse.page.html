@@ -1,0 +1,76 @@
+<div class="main centrado">
+    <form
+        class="container auth-form bounce-in-top"
+        (ngSubmit)="enviarForm()"
+        [formGroup]="form"
+        autocomplete="off"
+    >
+        <h2 class="text-info">Registrarse</h2>   
+        <div class="form-floating mb-3">
+            <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                placeholder="ejemplo@ejemplo.com"
+                [formControlName]="formControlName('correo')"
+            >
+            <label for="email">Correo electrónico</label>
+            <span class="form-text text-danger"
+                [innerHTML]="messageError('correo', {'mensaje': 'No es correo válido.' })"
+                >
+            </span>
+        </div>
+        <div class="form-floating mb-3">
+            <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                placeholder="Password"
+                [formControlName]="formControlName('clave')"
+            >
+            <label for="password">Clave</label>
+            <span class="form-text text-danger"
+                [innerHTML]="messageError('clave')"
+                >
+            </span>
+        </div>
+        <div class="form-floating mb-3">
+            <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                placeholder="Password"
+                [formControlName]="formControlName('repiteClave')"
+            >
+            <label for="password">Repite Clave</label>
+            <span class="form-text text-danger"
+            [innerHTML]="messageError('repiteClave',
+                 { 'key': 'noIguales', 'campo': 'repiteClave', mensaje :'Las contraseñas no coinciden'} )"
+                >
+            </span>
+        </div>
+        <div class="form-floating mb-3">
+            <select class="form-select" aria-label="Default select example"
+                [formControlName]="formControlName('tipo')"
+            >
+                @for(tipo of tipos; track tipo){
+                    @if(tipo !== 'admin') {
+                        <option [value]="tipo" [innerHTML]="tipo"></option>
+                    }
+                }
+            </select>
+            <span class="form-text text-danger"
+            [innerHTML]="messageError('repiteClave',
+                 { 'key': 'noEsValorPosible', 'campo': 'tipo', mensaje :'No es un valor posible'} )"
+                >
+            </span>
+        </div>
+        <div class="clearfix mb-4">
+            <button type="submit" class="button-86 me-2 float-end">Registrarse</button>
+        </div>
+        <hr>
+    </form>
+</div>

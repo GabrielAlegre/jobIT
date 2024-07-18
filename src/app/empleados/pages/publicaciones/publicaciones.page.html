@@ -1,0 +1,233 @@
+<div class="container-fluid">
+    <h2 class="text-center my-4 text-info">
+        Publicaciones
+    </h2>
+    <form [formGroup]="formFiltro">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" placeholder="Filtrar por título o descripción" id="filtro"
+                [formControlName]="formControlNameFiltro('filtro')">
+            <label for="filtro">Filtrar por título o descripción</label>
+        </div>
+        <div class="alert alert-warning" role="alert">
+            <i class="bi bi-info-circle"></i>
+            Luego de escribir el filtro, espere 3 segundos para que se aplique
+        </div>
+    </form>
+    <div class="row">
+        <!-- Sección de filtros -->
+        <div class="col-md-2">
+            <div class="row">
+                <h3 class="text-info ms-3">Más filtros</h3>
+            </div>
+            <div class="row">
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    @if(usuario?.tipo === 'empleado' && formEstadoDeSolicitud){
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingZero">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseZero" aria-expanded="false"
+                                aria-controls="flush-collapseZero">
+                                Estado de solicitud
+                            </button>
+                        </h2>
+                        <div id="flush-collapseZero" class="accordion-collapse collapse"
+                            aria-labelledby="flush-headingZero" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <form [formGroup]="formEstadoDeSolicitud">
+                                    @for(estadoDeSolicitud of estadosDeSolicitud; track estadoDeSolicitud){
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" [value]="estadoDeSolicitud"
+                                            [id]="estadoDeSolicitud" [formControlName]="estadoDeSolicitud">
+                                        <label class="form-check-label" [for]="estadoDeSolicitud">
+                                            {{estadoDeSolicitud | estadoRegistro}}
+                                        </label>
+                                    </div>
+                                    }
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                aria-controls="flush-collapseOne">
+                                Formas De Trabajo
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse"
+                            aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <form [formGroup]="formFormasDeTrabajo">
+                                    @for(formaDeTrabajo of formasDeTrabajo; track formaDeTrabajo){
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" [value]="formaDeTrabajo"
+                                            [id]="formaDeTrabajo" [formControlName]="formaDeTrabajo">
+                                        <label class="form-check-label" [for]="formaDeTrabajo">
+                                            {{formaDeTrabajo | titlecase}}
+                                        </label>
+                                    </div>
+                                    }
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                aria-controls="flush-collapseTwo">
+                                Nivel
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                            aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <form [formGroup]="formNiveles">
+                                    @for(nivel of niveles; track nivel){
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" [value]="nivel" [id]="nivel"
+                                            [formControlName]="nivel">
+                                        <label class="form-check-label" [for]="nivel">
+                                            {{nivel | titlecase}}
+                                        </label>
+                                    </div>
+                                    }
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                aria-controls="flush-collapseThree">
+                                Tiempo de Trabajo
+                            </button>
+                        </h2>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse"
+                            aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <form [formGroup]="formTiemposDeTrabajo">
+                                    @for(tiempoDeTrabajo of tiemposDeTrabajo; track tiempoDeTrabajo){
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" [value]="tiempoDeTrabajo"
+                                            [id]="tiempoDeTrabajo" [formControlName]="tiempoDeTrabajo">
+                                        <label class="form-check-label" [for]="tiempoDeTrabajo">
+                                            {{tiempoDeTrabajo | titlecase}}
+                                        </label>
+                                    </div>
+                                    }
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if(formProvincias){
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseFour" aria-expanded="false"
+                                aria-controls="flush-collapseFour">
+                                Provincias
+                            </button>
+                        </h2>
+                        <div id="flush-collapseFour" class="accordion-collapse collapse"
+                            aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <form [formGroup]="formProvincias">
+                                    @for(provincia of provincias; track provincia){
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" [value]="provincia"
+                                            [id]="provincia" [formControlName]="provincia">
+                                        <label class="form-check-label" [for]="provincia">
+                                            {{provincia | titlecase}}
+                                        </label>
+                                    </div>
+                                    }
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                    @if(formLocalidades){
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingFive">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseFive" aria-expanded="false"
+                                aria-controls="flush-collapseFive">
+                                Localidades
+                            </button>
+                        </h2>
+                        <div id="flush-collapseFive" class="accordion-collapse collapse"
+                            aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <form [formGroup]="formLocalidades">
+                                    @for(localidad of localidades; track localidad){
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" [value]="localidad"
+                                            [id]="localidad" [formControlName]="localidad">
+                                        <label class="form-check-label" [for]="localidad">
+                                            {{localidad | titlecase}}
+                                        </label>
+                                    </div>
+                                    }
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                    @if(formAreasDeTrabajo){
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingSix">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseSix" aria-expanded="false"
+                                aria-controls="flush-collapseSix">
+                                Areas de Trabajo
+                            </button>
+                        </h2>
+                        <div id="flush-collapseSix" class="accordion-collapse collapse"
+                            aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <form [formGroup]="formAreasDeTrabajo">
+                                    @for(areaDeTrabajo of areasDeTrabajo; track areaDeTrabajo){
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" [value]="areaDeTrabajo"
+                                            [id]="areaDeTrabajo" [formControlName]="areaDeTrabajo">
+                                        <label class="form-check-label" [for]="areaDeTrabajo">
+                                            {{areaDeTrabajo | titlecase}}
+                                        </label>
+                                    </div>
+                                    }
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <!-- Publicaciones -->
+        <div class="col-md-10">
+            <div class="row row-cols-1 row-cols-md-4">
+                <!-- Utilizamos row-cols-md-4 para mostrar una fila de cuatro columnas en pantallas medianas y más grandes -->
+                @for(publicacion of publicaciones
+                | filtroTituloDescripcion: tituloODescripcion
+                | filtroCheckboxesEnums: 'formasDeTrabajo':formasDeTrabajoSeleccionadas
+                | filtroCheckboxesEnums: 'nivel': nivelSeleccionados
+                | filtroCheckboxesEnums: 'tiempoDeTrabajo': tiemposDeTrabajosSeleccionados
+                | filtroCheckboxesEnums: 'provincia': provinciasSeleccionadas
+                | filtroCheckboxesEnums: 'localidad': localidadesSeleccionadas
+                | filtroCheckboxesEnums: 'areaDeTrabajo': areasDeTrabajoSeleccionadas
+                | filtroCheckboxesEnums: 'estadoRegistro': estadoDeSolicitudSeleccionadas
+                ; track publicacion.id){
+                <!-- | filtro : estadoDeSolicitudSeleccionadas -->
+                <div class="col mb-4">
+                    <core-card-publicacion [publicacion]="publicacion" [estado]="publicacion.estadoRegistro" />
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

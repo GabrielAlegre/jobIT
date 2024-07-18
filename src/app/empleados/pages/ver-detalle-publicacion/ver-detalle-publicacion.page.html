@@ -1,0 +1,91 @@
+<div style="height: 100vh;" class="container d-flex justify-content-center align-items-center">
+    @if(this.publicacion){
+    <div class="card w-75">
+        <div class="card-header">
+            <h5 class="card-title">
+                Detalle de la publicación
+            </h5>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title" [innerHTML]="publicacion.title"></h5>
+            <p class="card-text" [innerHTML]="publicacion.description"></p>
+            <p class="card-text">
+                <i class="bi bi-building me-2"></i><strong>Empresa: </strong>
+                <a class="text-decoration-underline card-subtitle mb-2 text-primary"
+                    [routerLink]="[('/ver-informacion-empresa' | rutaValida), publicacion.idEmpresa]"
+                    [innerHTML]="publicacion.empresaQuePublica">
+                </a>
+            </p>
+            <p class="card-text">
+                <i class="bi bi-person me-2"></i>
+                <strong>Nivel:</strong> {{ publicacion.nivel }}
+            </p>
+            <p class="card-text">
+                <i class="bi bi-clock me-2"></i>
+                <strong>Tiempo de trabajo:</strong> {{ publicacion.tiempoDeTrabajo }}
+            </p>
+            <p class="card-text">
+                <i class="bi bi-people me-2"></i>
+                <strong>Forma de trabajo:</strong> {{ publicacion.formasDeTrabajo }}
+            </p>
+            <p class="card-text">
+                <i class="bi bi-currency-dollar me-2"></i>
+                <strong>Salario:</strong> {{ publicacion.salario }}
+            </p>
+            <p class="card-text">
+                <i class="bi bi-laptop me-2"></i>
+                <strong>Área de trabajo:</strong> {{ nombreAreaDeTrabajo }}
+            </p>
+            <p class="card-text">
+                <i class="bi bi-geo-alt me-2"></i>
+                <strong>Provincia:</strong> {{ publicacion.provincia }}
+            </p>
+            <p class="card-text">
+                <i class="bi bi-pin-map-fill me-2"></i>
+                <strong>Localidad:</strong> {{ publicacion.localidad }}
+            </p>
+            <p class="card-text">
+                <i class="bi bi-house-door me-2"></i>
+                <strong>Domicilio:</strong> {{ publicacion.domicilio }}
+            </p>
+            @if(usuario?.tipo == tipoDeUsuario.admin) {
+                <button class="btn btn-danger w-100" (click)="finalizarPublicacion()">
+                    Finalizar
+                </button>
+            }
+            @else if(usuario?.tipo == tipoDeUsuario.empleado) {
+                @if(registro == null){
+                    <button class="btn btn-primary w-100" (click)="postularsePublicacion()">
+                        Postularse
+                    </button>
+                }
+                @else if(registro.estado == estadoRegistro.aplicado) {
+                    <h3 class="text-center text-success">Usted ya ha aplicado</h3>
+                }
+                @else if(registro.estado == estadoRegistro.aceptadoEmpresa) {
+                    <div class="row mt-4">
+                        <div class="col">
+                            <button class="btn btn-success w-100" type="button"
+                                (click)="aceptarRechazarEmpresa(estadoRegistro.aceptadoEmpleado)">
+                                Aceptar Empresa
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-danger w-100" type="button"
+                                (click)="aceptarRechazarEmpresa(estadoRegistro.rechazadoEmpleado)">
+                                Rechazar Empresa
+                            </button>
+                        </div>
+                    </div>
+                }
+                @else if(registro.estado == estadoRegistro.visto) {
+                    <h3 class="text-center text-success">La empresa ya ha visto su postulacion</h3>
+                }
+            }
+        </div>
+    </div>
+    }
+    @else {
+        <h1 class="text-center text-warning">Buscando los detalles ...</h1>
+    }
+</div>

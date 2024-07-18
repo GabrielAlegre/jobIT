@@ -1,0 +1,22 @@
+.foto-circulo {
+    width: 200px; /* Tamaño del círculo */
+    height: 200px; /* Tamaño del círculo */
+    border-radius: 50%; /* Hacer que el contenedor sea circular */
+    overflow: hidden; /* Ocultar cualquier parte de la imagen que se salga del círculo */
+    margin-left: 20rem;
+    margin-bottom: 5rem;
+}
+
+.foto {
+    width: 100%; /* Ajustar la imagen al tamaño del contenedor */
+    height: 100%; /* Ajustar la imagen al tamaño del contenedor */
+    object-fit: cover; /* Escalar la imagen para cubrir todo el contenedor */
+}
+
+/* Estilos para centrar el contenedor de la imagen */
+.centrado {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    margin-top: 50px; /* Espacio adicional desde la parte superior */
+}

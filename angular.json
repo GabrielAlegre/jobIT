@@ -1,0 +1,102 @@
+{
+    "version": 1,
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "newProjectRoot": "projects",
+    "projects": {
+        "job-it": {
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:application",
+                    "configurations": {
+                        "development": {
+                            "extractLicenses": false,
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.development.ts"
+                                }
+                            ],
+                            "optimization": false,
+                            "sourceMap": true
+                        },
+                        "production": {
+                            "budgets": [
+                                {
+                                    "maximumError": "4mb",
+                                    "maximumWarning": "2.5mb",
+                                    "type": "initial"
+                                },
+                                {
+                                    "maximumError": "10kb",
+                                    "maximumWarning": "6.5kb",
+                                    "type": "anyComponentStyle"
+                                }
+                            ],
+                            "outputHashing": "all"
+                        }
+                    },
+                    "defaultConfiguration": "production",
+                    "options": {
+                        "scripts": [
+                            "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+                        ],
+                        "assets": ["src/favicon.ico", "src/assets"],
+                        "browser": "src/main.ts",
+                        "index": "src/index.html",
+                        "inlineStyleLanguage": "scss",
+                        "outputPath": "dist/job-it",
+                        "polyfills": ["zone.js"],
+                        "styles": [
+                            "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                            "node_modules/bootstrap-icons/font/bootstrap-icons.min.css",
+                            "node_modules/primeng/resources/themes/bootstrap4-dark-purple/theme.css",
+                            "node_modules/primeng/resources/primeng.min.css",
+                            "node_modules/primeicons/primeicons.css",
+                            "simple-notify/dist/simple-notify.css",
+                            "src/styles.scss"
+                        ],
+                        "tsConfig": "tsconfig.app.json"
+                    }
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "buildTarget": "job-it:build"
+                    }
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "configurations": {
+                        "development": {
+                            "buildTarget": "job-it:build:development"
+                        },
+                        "production": {
+                            "buildTarget": "job-it:build:production"
+                        }
+                    },
+                    "defaultConfiguration": "development"
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "scripts": [],
+                        "assets": ["src/favicon.ico", "src/assets"],
+                        "inlineStyleLanguage": "scss",
+                        "polyfills": ["zone.js", "zone.js/testing"],
+                        "styles": ["src/styles.scss"],
+                        "tsConfig": "tsconfig.spec.json"
+                    }
+                }
+            },
+            "projectType": "application",
+            "root": "",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "scss"
+                }
+            },
+            "sourceRoot": "src"
+        }
+    }
+}

@@ -1,0 +1,15 @@
+<p-menubar [model]="menu">
+    <ng-template pTemplate="end">
+        @if(logeado){
+            <p class="mb-0">
+                Tipo:
+                <span class="text-info me-1"
+                    [innerHTML]="usuario?.tipo?.toString() | titlecase">
+                </span>
+
+                <img [src]="usuario?.pathFoto ?? fotoDefault" class="img-thumbnail img-thumbnail--menu" alt="imagen del usuario">
+
+            </p>
+        }
+        </ng-template>
+</p-menubar>

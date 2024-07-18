@@ -1,0 +1,68 @@
+<div class="main centrado">
+    <div class="container">
+        @if (tienePacksActivo){
+        <div class="card text-white mb-3" style="max-width: 100rem; height: 20rem;">
+            <div class="card-header text-center">¡Ya tienes un Pack activo!</div>
+            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                <h3 class="card-title text-center mb-3">Todavía tienes publicaciones disponibles en un pack</h3>
+                <p class="card-text text-center mb-5">¡Es hora de encontrar al candidato perfecto para tu equipo! Tu
+                    próxima
+                    gran contratación podría estar a solo un clic de distancia.</p>
+                <a href="/mis-publicaciones/agregar-publicacion" class="btn btn-primary btn-block"
+                    style="width: 100%;">Ir a Publicar</a>
+            </div>
+        </div>
+
+
+        } @else {
+        <h2 class="text-info">
+            Elegir Pack
+            <a class="btn btn-outline-info" [routerLink]="[('/mis-packs/listar-packs'| rutaValida)]">
+                Listar mis packs
+            </a>
+        </h2>
+        <div class="row">
+            @for (pack of packs; track $index; let first = $first) {
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3" style="cursor: pointer;">
+                <article class="card h-100 cursor-pointer" [ngClass]="{'selected-card': pack === selectedPack}"
+                    (click)="selectPack(pack)">
+                    <div class="d-flex justify-content-center align-items-center flex-column p-3">
+                        <h3 class="text-info" [innerHTML]="pack.nombre"></h3>
+                        <h5 class="text-center" [innerHTML]="pack.descripcion"></h5>
+                        <p class="mb-0">
+                            <strong>
+                                <em [innerHTML]="pack.precio.toString() | currency:'$'">
+                                </em>
+                            </strong>
+                        </p>
+                        <p class="mb-0">Cant. publicaciones: {{pack.cantidadDePublicaciones}}</p>
+                    </div>
+                </article>
+            </div>
+            }
+        </div>
+        <hr>
+        <h2 class="text-info">Elegir Tarjeta</h2>
+        <div class="row">
+            @for (tarjeta of empresa?.tarjetas; track $index; let last = $last) {
+            <div class="col col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3" style="cursor: pointer;">
+                <article class="card mb-3" [ngClass]="{'selected-card': tarjeta === selectedTarjeta} "
+                    (click)="selectTarjeta(tarjeta)">
+                    <!-- <article class="card mb-3"> -->
+                    <div class="d-flex justify-content-center align-items-center flex-column p-3">
+                        <h3 class="text-info" [innerHTML]="tarjeta.nombre"></h3>
+                        <h5 class="text-center" [innerHTML]="tarjeta.tipo"></h5>
+                        <p class="mb-0">{{tarjeta.numero}}</p>
+                    </div>
+                </article>
+            </div>
+            }
+        </div>
+        <div class="clearfix my-4">
+            <button type="button" class="button-86 me-2 float-end" (click)="comprarPack()">
+                Comprar
+            </button>
+        </div>
+        }
+    </div>
+</div>

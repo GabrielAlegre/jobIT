@@ -1,0 +1,73 @@
+<div class="main centrado">
+    <div class="container">
+        <h2 class="text-info">
+            Mis tarjetas
+            <a class="btn btn-outline-info" [routerLink]="[('/mis-tarjetas/agregar-tarjeta'| rutaValida)]">
+                Agregar
+            </a>
+        </h2>
+        @if(this.tarjetas?.length){
+        <!-- <h2 class="text-info">Mis tarjetas</h2> -->
+        <div class="table-responsive">
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th>
+                            <i class="bi bi-card-checklist"></i>
+                            Tipo
+                        </th>
+                        <th>
+                            <i class="bi bi-pencil-fill"></i>
+                            Nombre
+                        </th>
+                        <th>
+                            <i class="bi bi-credit-card-fill"></i>
+                            numero
+                        </th>
+                        <th>
+                            <i class="bi bi-eye"></i>
+                            codigo
+                        </th>
+                        <th>
+                            <i class="bi bi-calendar-event"></i>
+                            Mes
+                        </th>
+                        <th>
+                            <i class="bi bi-calendar-event"></i>
+                            Año
+                        </th>
+                        <th>
+                            Acciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (tarjeta of tarjetas; track $index) {
+                    <tr>
+                        <td [innerHTML]="tarjeta.tipo.toString()| titlecase"></td>
+                        <td [innerHTML]="tarjeta.nombre"></td>
+                        <td [innerHTML]="tarjeta.numero"></td>
+                        <td [innerHTML]="tarjeta.codigoDeSeguridad"></td>
+                        <td [innerHTML]="tarjeta.mesDeVencimiento"></td>
+                        <td [innerHTML]="tarjeta.anioDeVencimiento"></td>
+                        <td>
+                            <a class="btn btn-outline-warning mx-2"
+                                [routerLink]="[('/mis-tarjetas/modificar-tarjeta' | rutaValida), tarjeta.id]">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <button type="button" class="btn btn-outline-danger" (click)="eliminarTarjeta(tarjeta)">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        } @else {
+        <h1 class="text-warning text-center">
+            No tiene tarjetas guardadas
+        </h1>
+        }
+    </div>
+</div>

@@ -1,0 +1,148 @@
+<div class="main centrado">
+    <form
+        class="container mis-datos-form bounce-in-top"
+        (ngSubmit)="enviarForm()"
+        [formGroup]="form"
+        autocomplete="off"
+    >
+        <h2 class="text-info"
+            [innerHTML]="empleado?.tipo?.toString() | titlecase">
+        </h2>
+        <div class="row">
+            <div class="col col-12 col-md-6">
+                <div class="form-floating mb-3">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="nombre"
+                        name="nombre"
+                        placeholder="nombre"
+                        [formControlName]="formControlName('nombre')"
+                    >
+                    <label for="nombre">Nombre</label>
+                    <span class="form-text text-danger"
+                        [innerHTML]="messageError('nombre')"
+                        >
+                    </span>
+                </div>
+            </div>
+            <div class="col col-12 col-md-6">
+                <div class="form-floating mb-3">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="apellido"
+                        name="apellido"
+                        placeholder="apellido"
+                        [formControlName]="formControlName('apellido')"
+                    >
+                    <label for="apellido">apellido</label>
+                    <span class="form-text text-danger"
+                        [innerHTML]="messageError('apellido')"
+                        >
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12 col-md-6">
+                <div class="form-floating mb-3">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="dni"
+                        name="dni"
+                        placeholder="dni"
+                        [formControlName]="formControlName('dni')"
+                    >
+                    <label for="dni">dni</label>
+                    <span class="form-text text-danger"
+                        [innerHTML]="messageError('dni')"
+                        >
+                    </span>
+                </div>
+            </div>
+            <div class="col col-12 col-md-6">
+                <div class="form-floating mb-3">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="telefono"
+                        name="telefono"
+                        placeholder="telefono"
+                        [formControlName]="formControlName('telefono')"
+                    >
+                    <label for="telefono">telefono</label>
+                    <span class="form-text text-danger"
+                        [innerHTML]="messageError('telefono')"
+                        >
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12 col-md-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="provincia"
+                        #provincias_
+                        (change)="traerLocalidades(provincias_.value)"
+                        [formControlName]="formControlName('provincia')">
+                        @for(provincia of provincias; track provincia){
+                            <option
+                                [value]="provincia"
+                                [innerHTML]="provincia | titlecase">
+                            </option>
+                        }
+                    </select>
+                    <label for="provincia">provincia</label>
+                    <span class="form-text text-danger"
+                        [innerHTML]="messageError('provincia')"
+                        >
+                    </span>
+                </div>
+            </div>
+            <div class="col col-12 col-md-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="localidad"
+                        [formControlName]="formControlName('localidad')">
+                        @for(localidades of localidades; track localidades){
+                            <option
+                                [value]="localidades"
+                                [innerHTML]="localidades | titlecase">
+                            </option>
+                        }
+                    </select>
+                    <label for="localidad">localidad</label>
+                    <span class="form-text text-danger"
+                        [innerHTML]="messageError('localidad')"
+                        >
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12 col-md-6">
+                <div class="form-floating mb-3">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="domicilio"
+                        name="domicilio"
+                        placeholder="domicilio"
+                        [formControlName]="formControlName('domicilio')"
+                    >
+                    <label for="domicilio">domicilio</label>
+                    <span class="form-text text-danger"
+                        [innerHTML]="messageError('domicilio')"
+                        >
+                    </span>
+                </div>
+            </div>
+            <div class="col col-12 col-md-6"></div>
+        </div>
+
+        <div class="clearfix mb-4">
+            <button type="submit" class="button-86 me-2 float-end">Actualizar</button>
+        </div>
+    </form>
+</div>

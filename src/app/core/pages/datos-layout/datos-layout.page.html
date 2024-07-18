@@ -1,0 +1,11 @@
+@if (usuario?.tipo == 'empleado') {
+    <empleados-mis-datos-empleado [empleado]="usuarioEmpleado"/>
+} @else if(usuario?.tipo === 'empresa') {
+    <empresas-mis-datos-empresa [empresa]="usuarioEmpresa"/>
+} @else if(usuario?.tipo === 'admin') {
+    <admins-mis-datos-admin [admin]="usuarioAdmin"/>
+} @else {
+    <div class="main centrado">
+        <h1 class="text-danger">Usted no debería estar aquí</h1>
+    </div>
+}

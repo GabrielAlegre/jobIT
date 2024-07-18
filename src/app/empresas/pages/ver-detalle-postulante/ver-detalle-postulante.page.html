@@ -1,0 +1,105 @@
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card w-75">
+        <div class="card-header">
+            <h5 class="card-title">Detalle del postulante</h5>
+        </div>
+        <div class="card-body">
+            <div class="d-flex flex-column align-items-center">
+                <img class="card-img-top rounded-circle mx-auto mt-3" [src]="empleado?.pathFoto" alt="Foto del empleado"
+                    style="width: 100px;">
+                <h5 class="card-title">{{ empleado?.nombre }} {{ empleado?.apellido }}</h5>
+            </div>
+            <p class="card-text"><i class="bi bi-person me-2"></i> <strong>DNI:</strong> {{ empleado?.dni }}</p>
+            <p class="card-text"><i class="bi bi-envelope me-2"></i> <strong>Correo:</strong> {{ empleado?.correo }}</p>
+            <p class="card-text"><i class="bi bi-telephone me-2"></i> <strong>Teléfono:</strong> {{ empleado?.telefono
+                }}</p>
+            <p class="card-text"><i class="bi bi-geo-alt me-2"></i> <strong>Ubicación:</strong> {{ empleado?.provincia
+                }}, {{ empleado?.localidad }}</p>
+            <p class="card-text"><i class="bi bi-house-door me-2"></i> <strong>Domicilio:</strong> {{
+                empleado?.domicilio }}</p>
+
+            @if (empleado?.experienciaDeTrabajo != undefined ) {
+            <h6 class="card-subtitle mt-2 mb-2">Experiencia Laboral:</h6>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Inicio</th>
+                            <th scope="col">Fin</th>
+                            <th scope="col">Institucion</th>
+                            <th scope="col">Puesto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let experiencia of empleado?.experienciaDeTrabajo">
+                            <td>{{ experiencia.inicio.toString()| date }}</td>
+                            <td>{{ experiencia.fin.toString()| date }}</td>
+                            <td>{{ experiencia.institucion }}</td>
+                            <td>{{ experiencia.titulo }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            }@else {
+            <h6 class="card-subtitle mt-4 mb-2">No tiene experiencia Laboral</h6>
+            }
+
+            @if (empleado?.experienciaDeEstudio != undefined) {
+            <h6 class="card-subtitle mt-2 mb-2">Experiencia Academica:</h6>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Inicio</th>
+                            <th scope="col">Fin</th>
+                            <th scope="col">Institucion</th>
+                            <th scope="col">Titulo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let experiencia of empleado?.experienciaDeEstudio">
+                            <td>{{ experiencia.inicio.toString()| date }}</td>
+                            <td>{{ experiencia.fin.toString()| date }}</td>
+                            <td>{{ experiencia.institucion }}</td>
+                            <td>{{ experiencia.titulo }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            }@else {
+            <h6 class="card-subtitle mt-4 mb-2">No tiene experiencia Academica</h6>
+            }
+
+            <a class="text-info mt-2 mb-4 fs-5 fw-bold text-decoration-underline" href="{{ empleado?.pathCV }}"
+                target="_blank">
+                Ver CV
+            </a>
+
+
+            <!-- Botón para aceptar el postulante -->
+            @if (this.publicacion?.estado==="finalizada" && this.registro?.estado!=="aceptadoEmpleado") {
+            <h3 class="text-center text-success">Ya has contratado a un empleado para esta publicacion! </h3>
+            }@else if (this.registro?.estado==="aplicado" || this.registro?.estado==="visto") {
+            <button class="btn btn-success w-100 mt-4"
+                (click)="actualizarRegistro(EEstadosRegistro.aceptadoEmpresa)">Aceptar Postulante para el
+                Empleo</button>
+            }@else if(this.registro?.estado==="aceptadoEmpresa"){
+            <h3 class="text-center text-success">Ya ha aceptado al empleado, esperando su respuesta</h3>
+            }@else if(this.registro?.estado==="aceptadoEmpleado"){
+            <h3 class="text-center text-success">Felicitaciones! {{empleado?.nombre}} acepto el puesto de trabajo. </h3>
+            }@else if(this.registro?.estado==="rechazadoEmpleado"){
+            <h3 class="text-center text-success">Lo sentimos, {{empleado?.nombre}} rechazo el puesto de trabajo. </h3>
+            }
+            <!-- <div class="row mt-4">
+                <div class="col">
+                    <button class="btn btn-success w-100" type="button" (click)="aceptarEmpleado()">Aceptar Postulante
+                        para el
+                        Empleo</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-danger w-100" type="button">Rechazar</button>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>

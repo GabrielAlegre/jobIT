@@ -1,0 +1,62 @@
+<div class="main centrado">
+    <div class="container">
+        <h2 class="text-info">Area de trabajo
+            <a class="btn btn-outline-info"
+                [routerLink]="[('/datos-dinamicos/agregar-area-de-trabajo'| rutaValida)]">
+                Agregar
+            </a>
+        </h2>
+        @if(areas?.length){
+            <div class="table-responsive">
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th>
+                                <i class="bi bi-card-checklist"></i>
+                                Nombre
+                            </th>
+                            <th>
+                                <i class="bi bi-info-square"></i>
+                                Estado
+                            </th>
+                            <th>Aciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (area of areas; track $index) {
+                            <tr>
+                                <td [innerHTML]="area.nombre"></td>
+                                <td [innerHTML]="area.estado"></td>
+                                <td>
+                                    <a
+                                        class="btn btn-outline-warning mx-2"
+                                        [routerLink]="[('/datos-dinamicos/modificar-area-de-trabajo' | rutaValida), area.id]"
+                                    >
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <button type="button" class="btn mx-2"
+                                        [ngClass]="area.estado === estadoArea.pausada ? 'btn btn-outline-info' : 'btn-outline-warning'"
+                                        (click)="pausarArea(area)">
+                                        <i
+                                            [ngClass]="area.estado === estadoArea.pausada ? 'bi bi-play-fill' : 'bi bi-pause-fill'">
+                                        </i>
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-outline-danger mx-2"
+                                        (click)="eliminarArea(area)"
+                                    >
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        }@else{
+            <h2 class="text-warning text-center">Aún no hay areas de trabajo</h2>
+        }
+    </div>
+</div>
