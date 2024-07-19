@@ -2,6 +2,9 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { environment } from '../../../../environments/environment';
+import { IEstadistica } from '../../../core/interfaces/estadistica.interface';
+import { EstadisticasService } from '../../../core/services/estadisticas.service';
+import { TTodosLosUsuarios } from '../../../core/types/todos-los-usuarios.type';
 import { IValidadorOpciones } from '../../../shared/interfaces/validador-opciones.interface';
 import { RutaValidaPipe } from '../../../shared/pipes/ruta-valida.pipe';
 import { RouterService } from '../../../shared/services/router.service';
@@ -27,6 +30,9 @@ export default class IniciarSesionPage {
     private readonly routerSrv = inject(RouterService);
     private readonly authSrv = inject(AuthService);
     private readonly validadorSrv = inject(ValidadorService);
+    private readonly estadisticasSrv = inject(EstadisticasService);
+    userLog!: TTodosLosUsuarios;
+    estadistica!: IEstadistica;
 
     form: FormGroup = this.formBuilder.group<IIniciarSesion>({
         correo: ['', {
@@ -47,6 +53,23 @@ export default class IniciarSesionPage {
         }],
     });
 
+
+    async ngOnInit(): Promise<void> {
+        await this.obtenerEstadisticas();
+    }
+
+    async obtenerEstadisticas() {
+        await this.estadisticasSrv.getUno().then((estadistica) => {
+            this.estadistica = estadistica;
+            console.log(this.estadistica);
+        }).catch(async (error) => {
+            console.log(error);
+        })
+            .finally(async () => {
+                this.spinnerSrv.ocultar();
+            });
+    }
+
     getForm(campo: keyof IIniciarSesion) {
         return this.form.get(campo);
     }
@@ -66,11 +89,40 @@ export default class IniciarSesionPage {
             return;
         }
 
-        this.spinnerSrv.mostrar();
+        // this.spinnerSrv.mostrar();
         await this.authSrv
             .iniciarSesion(this.getForm('correo')?.value, this.getForm('clave')?.value)
             .then(async (user: any) => {
                 this.toastSrv.info('Ha ingresado');
+                await this.getUsuarioLogeado().then(async (user: any) => {
+                    // Buscar si el usuario ya está en el array
+                    const usuarioExistente = this.estadistica.usuarios.find(u => u.idUser === this.userLog?.id);
+
+                    if (usuarioExistente) {
+                        // Si el usuario ya está, actualizar el valor de vecesQueIngreso
+                        usuarioExistente.vecesQueIngreso += 1;
+                        usuarioExistente.fechaInicio = new Date();
+                        usuarioExistente.fechaFin = new Date();
+                    } else {
+                        // Si el usuario no está, agregarlo con valores inicializados
+                        if (this.userLog) {
+                            this.estadistica.usuarios.push({
+                                idUser: this.userLog.id,
+                                fechaInicio: new Date(),
+                                fechaFin: new Date(),
+                                minutosActivo: 0,
+                                cantidadDePostulaciones: 0,
+                                cantidadDePublicaciones: 0,
+                                dineroGastado: 0,
+                                vecesQueIngreso: 1
+                            });
+
+                        }
+                    }
+
+                    this.estadistica.visitas += 1;
+                    await this.estadisticasSrv.guardar(this.estadistica);
+                });
                 await this.routerSrv.navigateByUrl('/');
             })
             .catch((e: any) => {
@@ -96,4 +148,14 @@ export default class IniciarSesionPage {
         }
     }
 
+    async getUsuarioLogeado(): Promise<void> {
+        const usuario = await this.authSrv.usuarioLogeadoBBDD();
+
+        if (!usuario) {
+            this.toastSrv.error('No se pudo recuperar los datos del usuario');
+            return;
+        }
+        console.log(usuario);
+        this.userLog = usuario;
+    }
 }

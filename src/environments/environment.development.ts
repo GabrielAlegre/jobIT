@@ -21,7 +21,8 @@ export const environment = {
         publicaciones: 'publicaciones',
         areasDeTrabajo: 'areasDeTrabajo',
         registro: 'registro',
-        notificaciones: 'notificaciones'
+        notificaciones: 'notificaciones',
+        estadisticas: 'estadisticas'
     },
     ids: {
         suscripcion: 'q3GEesBmaPWHGbtYn05z'
