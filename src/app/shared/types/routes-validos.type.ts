@@ -76,7 +76,10 @@ export type TRoutesValidos =
     | 'mis-suscripciones/comprar-suscripcion___Comprar subscripción'
     | 'mis-suscripciones/listar-suscripciones___Mis suscripciones'
 
+
+
     | 'publicaciones___Publicaciones'
+    | 'panel-de-control___Panel de control'
     | 'publicaciones/mis-postulaciones___Mis postulaciones'
     | 'publicaciones/ver-todas___Ver todas'
     | 'publicaciones/ver-detalle/:id___'

@@ -280,6 +280,12 @@ export class MenuComponent implements OnInit {
                 ]
             },
             {
+                label: 'Panel de control',
+                visible: this.siEsAdmin,
+                escape: false,
+                routerLink: '/panel-de-control',
+            },
+            {
                 label: this.publicacionesLabel,
                 escape: false,
                 routerLink: '/publicaciones/ver-todas',

@@ -1,0 +1,38 @@
+.card {
+    //   border: none;
+      border-radius: 0.75rem;
+      background-color: #4441412d; /* Cambiado a color oscuro para coincidir con tu imagen */
+      color: white;
+    }
+    
+    // .card-body {
+    //   display: flex;
+    //   align-items: center;
+    //   justify-content: center;
+    // }
+    
+    .card-body .fa-2x {
+      font-size: 2rem;
+    }
+    
+    .card-body .ml-3 {
+      margin-left: 1rem;
+    }
+    
+    .card-body h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .card-body p {
+      margin-bottom: 0;
+      color: #bbb; /* Texto secundario en gris claro */
+    }
+    
+    
+    
+      
+      .card-body .icono {
+        font-size: 3rem;
+      }
+    

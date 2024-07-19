@@ -54,7 +54,8 @@
                             "node_modules/primeng/resources/primeng.min.css",
                             "node_modules/primeicons/primeicons.css",
                             "simple-notify/dist/simple-notify.css",
-                            "src/styles.scss"
+                            "src/styles.scss",
+                            "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
                         ],
                         "tsConfig": "tsconfig.app.json"
                     }

@@ -178,6 +178,12 @@ export const routes: Routes = [
                 canActivate: [adminGuard]
             },
             {
+                title: 'Panel de control',
+                path: 'panel-de-control',
+                loadComponent: () => import('./admins/pages/panel-de-control/panel-de-control.page'),
+                canActivate: [adminGuard]
+            },
+            {
                 title: 'Página no encontrada',
                 path: '404',
                 loadComponent: () => import('./shared/pages/error404/error404.page'),
