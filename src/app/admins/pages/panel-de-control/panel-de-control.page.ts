@@ -4,6 +4,10 @@ import { IAdmin } from '../../../core/interfaces/admin.interface';
 import { ICardsDeInicio } from '../../../core/interfaces/cards-de-inicio.interface';
 import { IEmpleado } from '../../../core/interfaces/empleado.interface';
 import { IEmpresa } from '../../../core/interfaces/empresa.interface';
+import { IEstadistica } from '../../../core/interfaces/estadistica.interface';
+import { IPago } from '../../../core/interfaces/pago.interface';
+import { EstadisticasService } from '../../../core/services/estadisticas.service';
+import { PagosService } from '../../../core/services/pagos.service';
 import { UsuariosService } from '../../../core/services/usuarios.service';
 import { TTodosLosUsuarios } from '../../../core/types/todos-los-usuarios.type';
 import { SpinnerService } from '../../../shared/services/spinner.service';
@@ -19,17 +23,26 @@ import { ToastService } from '../../../shared/services/toast.service';
 export default class PanelDeControlPage {
     private readonly toastSrv = inject(ToastService);
     private readonly usuarioSrv = inject(UsuariosService);
+    private readonly pagosSrv = inject(PagosService);
+    private readonly estadisticasSrv = inject(EstadisticasService);
     private readonly spinnerSrv = inject(SpinnerService);
     cards: ICardsDeInicio[] = [];
     visitasPagina: number = 3432;
     publicacionesActivas: number = 3234;
     publicacionesPausadas: number = 3242;
-    dineroGanado: number = 456;
+    dineroGanado?: number;
     usuarios: (any)[] = []; // Actualizado para reflejar los tipos casteados
     ETipoDeUsuario = ETipoDeUsuario;
+    estadistica!: IEstadistica;
 
     async ngOnInit(): Promise<void> {
         await this.traerUsers();
+        await this.obtenerDineroGanado();
+        await this.estadisticasSrv.getUno().then((estadistica) => {
+            this.estadistica = estadistica;
+            this.visitasPagina = estadistica.visitas;
+        });
+
     }
 
     async traerUsers(): Promise<void> {
@@ -59,4 +72,22 @@ export default class PanelDeControlPage {
             }
         });
     }
+
+    async obtenerDineroGanado(): Promise<void> {
+        const pagos = await this.pagosSrv.getTodos([])
+            .then((pagos: IPago[]) => {
+                this.dineroGanado = pagos.reduce((total, pago) => total + pago.precio, 0);
+            })
+            .catch((error: Error) => {
+                this.toastSrv.error('No se pudo traer los pagos');
+                console.error(error);
+                return [];
+            })
+            .finally(() => {
+                this.spinnerSrv.ocultar();
+            });
+        console.log(this.dineroGanado);
+    }
+
+
 }
