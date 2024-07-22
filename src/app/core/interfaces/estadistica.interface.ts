@@ -1,10 +1,6 @@
 
 export interface IEstadistica {
     id?: string;
-    cantidadDePublicaciones: number;
-    cantidadDePublicacionesActivas: number;
-    cantidadDePublicacionesPausadas: number;
-    dineroGanado: number;
     visitas: number;
     usuarios: {
         idUser?: any;

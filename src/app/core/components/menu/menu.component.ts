@@ -8,6 +8,8 @@ import { RouterService } from '../../../shared/services/router.service';
 import { ToastService } from '../../../shared/services/toast.service';
 import { TTituloValido } from '../../../shared/types/titulo-valido.type';
 import { ETipoDeUsuario } from '../../enums/tipo-de-usuario.enum';
+import { IEstadistica } from '../../interfaces/estadistica.interface';
+import { EstadisticasService } from '../../services/estadisticas.service';
 import { NotificacionService } from '../../services/notificacion.service';
 import { UsuariosService } from '../../services/usuarios.service';
 import { TTodosLosUsuarios } from '../../types/todos-los-usuarios.type';
@@ -26,6 +28,7 @@ export class MenuComponent implements OnInit {
     private readonly usuariosSrv = inject(UsuariosService);
     private readonly routerSrv = inject(RouterService);
     private readonly notificacionSrv = inject(NotificacionService);
+    private readonly estadisticasSrv = inject(EstadisticasService);
 
     menu: MenuItem[] | undefined;
     logeado: boolean | undefined = undefined;
@@ -35,8 +38,9 @@ export class MenuComponent implements OnInit {
     cantidadAceptacionesActivas: number = 0;
     notificacionSubscription?: Subscription;
     aceptacionSubscription?: Subscription;
+    estadistica!: IEstadistica;
 
-    ngOnInit(): void {
+    async ngOnInit(): Promise<void> {
         this.actualizarMenu();
 
         this.authSrv.usuarioLogeadoAuthObservable()
@@ -88,7 +92,16 @@ export class MenuComponent implements OnInit {
         return this.usuario?.tipo == ETipoDeUsuario.empresa;
     }
 
-    private cerrarSesion(): Promise<void> {
+    private async cerrarSesion(): Promise<void> {
+        await this.obtenerEstadisticas().then(async () => {
+            // Buscar si el usuario ya está en el array
+            const usuarioExistente = this.estadistica.usuarios.find(u => u.idUser === this.usuario?.id);
+
+            if (usuarioExistente) {
+                usuarioExistente.fechaFin = new Date();
+                await this.estadisticasSrv.guardar(this.estadistica);
+            }
+        });
         return this.authSrv.cerrarSession()
             .then(async () => {
                 this.usuario = undefined;
@@ -99,6 +112,15 @@ export class MenuComponent implements OnInit {
             .catch((error: Error) => {
                 this.toastSrv.error(error.message);
             });
+    }
+
+    async obtenerEstadisticas() {
+        await this.estadisticasSrv.getUno().then((estadistica) => {
+            this.estadistica = estadistica;
+            console.log(this.estadistica);
+        }).catch(async (error) => {
+            console.log(error);
+        });
     }
 
     private get misPublicacionesLabel(): TTituloValido {

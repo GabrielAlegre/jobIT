@@ -33,10 +33,6 @@ export default class HomePage implements OnInit {
             this.estadistica = estadistica;
         }).catch(async (error) => {
             await this.estadisticasSrv.guardar({
-                cantidadDePublicaciones: 0,
-                cantidadDePublicacionesActivas: 0,
-                cantidadDePublicacionesPausadas: 0,
-                dineroGanado: 0,
                 visitas: 0,
                 usuarios: []
             });

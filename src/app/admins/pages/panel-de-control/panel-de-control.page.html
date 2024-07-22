@@ -123,7 +123,8 @@
                                     <td>{{ user.provincia?user.provincia:"No la ingreso" }}</td>
                                     <td>{{ user.tipo}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-outline-success mx-2">
+                                        <button type="button" class="btn btn-outline-success mx-2"
+                                            (click)="openModal(user)">
                                             <i class="bi bi-eye"></i>
                                         </button>
                                     </td>
@@ -173,4 +174,30 @@
             </div>
         </div>
     </div>
+
+    <ng-template #userDetailModal let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title">Detalles del Usuario</h4>
+
+        </div>
+        <div class="modal-body">
+            <p><strong>Fecha del ultimo inicio de sesión:</strong> {{ selectedUser?.fechaInicio?.toLocaleDateString()}}
+                -
+                {{selectedUser?.fechaInicio?.toLocaleTimeString()}}</p>
+            <p><strong>Fecha del ultimo de cierre de sesión:</strong> {{ selectedUser?.fechaFin?.toLocaleDateString()}}
+                -
+                {{selectedUser?.fechaFin?.toLocaleTimeString()}}</p>
+            <p><strong>Minutos Activo de la ultima sesión:</strong> {{ selectedUser?.minutosActivo }} minutos</p>
+            <p><strong>Cantidad de Postulaciones:</strong> {{ selectedUser?.cantidadDePostulaciones || 'No disponible'
+                }}</p>
+            <p><strong>Cantidad de Publicaciones:</strong> {{ selectedUser?.cantidadDePublicaciones || 'No disponible'
+                }}</p>
+            <p><strong>Dinero Gastado:</strong> {{ selectedUser?.dineroGastado }}</p>
+            <p><strong>Veces que Ingresó:</strong> {{ selectedUser?.vecesQueIngreso }}</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" (click)="modal.close()">Cerrar</button>
+        </div>
+    </ng-template>
+
 </div>

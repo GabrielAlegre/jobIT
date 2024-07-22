@@ -1,5 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EEstadoPublicacion } from '../../../core/enums/estado-publicacion.enum';
 import { ETipoDeUsuario } from '../../../core/enums/tipo-de-usuario.enum';
 import { IAdmin } from '../../../core/interfaces/admin.interface';
@@ -15,7 +16,6 @@ import { UsuariosService } from '../../../core/services/usuarios.service';
 import { TTodosLosUsuarios } from '../../../core/types/todos-los-usuarios.type';
 import { SpinnerService } from '../../../shared/services/spinner.service';
 import { ToastService } from '../../../shared/services/toast.service';
-
 @Component({
     selector: 'admins-panel-de-control',
     standalone: true,
@@ -29,6 +29,10 @@ export default class PanelDeControlPage {
     private readonly pagosSrv = inject(PagosService);
     private readonly estadisticasSrv = inject(EstadisticasService);
     private readonly spinnerSrv = inject(SpinnerService);
+    private readonly publicacionSrv = inject(PublicacionesService);
+    private readonly modalService = inject(NgbModal);
+    @ViewChild('userDetailModal') userDetailModal!: TemplateRef<any>;
+    selectedUser?: IEstadistica['usuarios'][0];
     pagos: IPago[] = [];
     visitasPagina: number = 3432;
     publicacionesActivas: IPublicacion[] = [];
@@ -43,7 +47,6 @@ export default class PanelDeControlPage {
     usuarios: (any)[] = []; // Actualizado para reflejar los tipos casteados
     ETipoDeUsuario = ETipoDeUsuario;
     estadistica!: IEstadistica;
-    private readonly publicacionSrv = inject(PublicacionesService);
 
     async ngOnInit(): Promise<void> {
         await this.traerUsers();
@@ -54,6 +57,24 @@ export default class PanelDeControlPage {
             this.visitasPagina = estadistica.visitas;
         });
 
+    }
+
+    openModal(user: any): void {
+        console.log(user);
+        console.log(this.estadistica.usuarios.find((usuario) => usuario.idUser == user.id));
+        this.selectedUser = this.estadistica.usuarios.find((usuario) => usuario.idUser == user.id);
+        if (this.selectedUser != undefined) {
+            this.selectedUser.fechaFin = this.convertTimestampToDate(this.selectedUser.fechaFin);
+            this.selectedUser.fechaInicio = this.convertTimestampToDate(this.selectedUser.fechaInicio);
+            this.selectedUser.minutosActivo = this.calculateMinutosActivo(this.selectedUser.fechaInicio, this.selectedUser.fechaFin);
+
+        }
+        this.modalService.open(this.userDetailModal);
+    }
+
+    private calculateMinutosActivo(fechaInicio: Date, fechaFin: Date): number {
+        const diffInMs = fechaFin.getTime() - fechaInicio.getTime();
+        return Math.floor(diffInMs / 60000); // Convertir milisegundos a minutos
     }
 
     async traerUsers(): Promise<void> {
