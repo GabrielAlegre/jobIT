@@ -121,9 +121,10 @@ export default class IniciarSesionPage {
                     }
 
                     this.estadistica.visitas += 1;
-                    await this.estadisticasSrv.guardar(this.estadistica);
+                    await this.routerSrv.navigateByUrl('/').then(async () => {
+                        await this.estadisticasSrv.guardar(this.estadistica);
+                    });
                 });
-                await this.routerSrv.navigateByUrl('/');
             })
             .catch((e: any) => {
                 this.toastSrv.error(e?.message || e?.code);
