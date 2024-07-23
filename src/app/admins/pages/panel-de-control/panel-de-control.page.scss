@@ -38,4 +38,31 @@
       .card-body .icono {
         font-size: 3rem;
       }
+      .img-thumbnail--menu {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+    }
     
+    .foto-circulo {
+        width: 200px; /* Tamaño del círculo */
+        height: 200px; /* Tamaño del círculo */
+        border-radius: 50%; /* Hacer que el contenedor sea circular */
+        overflow: hidden; /* Ocultar cualquier parte de la imagen que se salga del círculo */
+    }
+    
+    .foto {
+        width: 100%; /* Ajustar la imagen al tamaño del contenedor */
+        height: 100%; /* Ajustar la imagen al tamaño del contenedor */
+        object-fit: cover; /* Escalar la imagen para cubrir todo el contenedor */
+    }
+    
+    /* Estilos para centrar el contenedor de la imagen */
+    .centrado {
+        display: flex;
+        justify-content: center; /* Centrar horizontalmente */
+        align-items: center; /* Centrar verticalmente */
+        margin-top: 2rem; /* Espacio adicional desde la parte superior */
+        margin-bottom: 0.8rem; /* Espacio adicional desde la parte superior */
+        margin-left: 8rem;
+    }

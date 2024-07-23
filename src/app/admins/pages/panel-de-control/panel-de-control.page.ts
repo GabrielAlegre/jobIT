@@ -47,7 +47,8 @@ export default class PanelDeControlPage {
     usuarios: (any)[] = []; // Actualizado para reflejar los tipos casteados
     ETipoDeUsuario = ETipoDeUsuario;
     estadistica!: IEstadistica;
-    usuarioSeleccionado!: TTodosLosUsuarios;
+    usuarioSeleccionado!: any;
+    fotoDefault: string = "./assets/images/sin_foto_de_perfil.png";
 
     async ngOnInit(): Promise<void> {
         await this.traerUsers();
@@ -62,7 +63,13 @@ export default class PanelDeControlPage {
 
     openModal(user: any): void {
         console.log(user);
-        this.usuarioSeleccionado = user;
+        if (user.tipoDeUsuario == ETipoDeUsuario.empleado) {
+            this.usuarioSeleccionado = user as IEmpleado;
+        } else if (user.tipoDeUsuario == ETipoDeUsuario.empresa) {
+            this.usuarioSeleccionado = user as IEmpresa;
+        } else {
+            this.usuarioSeleccionado = user as IAdmin;
+        }
         console.log(this.estadistica.usuarios.find((usuario) => usuario.idUser == user.id));
         this.estadisticasDelUserSeleccionado = this.estadistica.usuarios.find((usuario) => usuario.idUser == user.id);
         if (this.estadisticasDelUserSeleccionado != undefined) {

@@ -78,6 +78,9 @@
                             <thead>
                                 <tr>
                                     <th>
+                                        <i class="bi bi-camera"></i>
+                                    </th>
+                                    <th>
                                         <i class="bi bi-person"></i>
                                         Nombre
                                     </th>
@@ -112,6 +115,8 @@
                                 @if (user.tipo != ETipoDeUsuario.admin ) {
                                 <tr>
 
+                                    <td><img [src]="user?.pathFoto ?? fotoDefault"
+                                            class="img-thumbnail img-thumbnail--menu" alt="imagen del usuario"> </td>
                                     <td>{{ user.nombre?user.nombre:"No lo ingreso" }}</td>
                                     <td>{{ user.correo }}</td>
                                     @if (user.tipo==ETipoDeUsuario.empresa) {
@@ -181,6 +186,18 @@
 
         </div>
         <div class="modal-body">
+            @if (usuarioSeleccionado.pathFoto) {
+            <div class="foto-circulo centrado">
+                <img [src]="usuarioSeleccionado.pathFoto" alt="Foto" class="foto">
+            </div>
+            } @else {
+            <img [src]="fotoDefault" alt="Foto" class="foto">
+            }
+
+            <p class="text-center text-info mb-4"><strong style="font-size: larger;">{{usuarioSeleccionado.nombre}}
+                    {{usuarioSeleccionado.apellido ? usuarioSeleccionado.apellido : ""}}</strong></p>
+
+
             <p><strong>Fecha del ultimo inicio de sesión:</strong> {{
                 estadisticasDelUserSeleccionado?.fechaInicio?.toLocaleDateString()}}
                 -
