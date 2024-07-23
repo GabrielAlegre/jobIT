@@ -181,19 +181,25 @@
 
         </div>
         <div class="modal-body">
-            <p><strong>Fecha del ultimo inicio de sesión:</strong> {{ selectedUser?.fechaInicio?.toLocaleDateString()}}
+            <p><strong>Fecha del ultimo inicio de sesión:</strong> {{
+                estadisticasDelUserSeleccionado?.fechaInicio?.toLocaleDateString()}}
                 -
-                {{selectedUser?.fechaInicio?.toLocaleTimeString()}}</p>
-            <p><strong>Fecha del ultimo de cierre de sesión:</strong> {{ selectedUser?.fechaFin?.toLocaleDateString()}}
+                {{estadisticasDelUserSeleccionado?.fechaInicio?.toLocaleTimeString()}}</p>
+            <p><strong>Fecha del ultimo de cierre de sesión:</strong> {{
+                estadisticasDelUserSeleccionado?.fechaFin?.toLocaleDateString()}}
                 -
-                {{selectedUser?.fechaFin?.toLocaleTimeString()}}</p>
-            <p><strong>Minutos Activo de la ultima sesión:</strong> {{ selectedUser?.minutosActivo }} minutos</p>
-            <p><strong>Cantidad de Postulaciones:</strong> {{ selectedUser?.cantidadDePostulaciones || 'No disponible'
-                }}</p>
-            <p><strong>Cantidad de Publicaciones:</strong> {{ selectedUser?.cantidadDePublicaciones || 'No disponible'
-                }}</p>
-            <p><strong>Dinero Gastado:</strong> {{ selectedUser?.dineroGastado }}</p>
-            <p><strong>Veces que Ingresó:</strong> {{ selectedUser?.vecesQueIngreso }}</p>
+                {{estadisticasDelUserSeleccionado?.fechaFin?.toLocaleTimeString()}}</p>
+            <p><strong>Minutos Activo de la ultima sesión:</strong> {{ estadisticasDelUserSeleccionado?.minutosActivo }}
+                minutos</p>
+            @if (usuarioSeleccionado.tipo == ETipoDeUsuario.empleado) {
+            <p><strong>Cantidad de Postulaciones:</strong> {{ estadisticasDelUserSeleccionado?.cantidadDePostulaciones
+                || 'No se postulo a ninguna publicación'}}</p>
+            }@else if (usuarioSeleccionado.tipo== ETipoDeUsuario.empresa) {
+            <p><strong>Cantidad de Publicaciones:</strong> {{ estadisticasDelUserSeleccionado?.cantidadDePublicaciones
+                || 'No hizo ninguna publicación' }}</p>
+            }
+            <p><strong>Dinero Gastado:</strong> {{ estadisticasDelUserSeleccionado?.dineroGastado }}</p>
+            <p><strong>Veces que Ingresó:</strong> {{ estadisticasDelUserSeleccionado?.vecesQueIngreso }}</p>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-primary" (click)="modal.close()">Cerrar</button>

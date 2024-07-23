@@ -32,7 +32,7 @@ export default class PanelDeControlPage {
     private readonly publicacionSrv = inject(PublicacionesService);
     private readonly modalService = inject(NgbModal);
     @ViewChild('userDetailModal') userDetailModal!: TemplateRef<any>;
-    selectedUser?: IEstadistica['usuarios'][0];
+    estadisticasDelUserSeleccionado?: IEstadistica['usuarios'][0];
     pagos: IPago[] = [];
     visitasPagina: number = 3432;
     publicacionesActivas: IPublicacion[] = [];
@@ -47,6 +47,7 @@ export default class PanelDeControlPage {
     usuarios: (any)[] = []; // Actualizado para reflejar los tipos casteados
     ETipoDeUsuario = ETipoDeUsuario;
     estadistica!: IEstadistica;
+    usuarioSeleccionado!: TTodosLosUsuarios;
 
     async ngOnInit(): Promise<void> {
         await this.traerUsers();
@@ -61,13 +62,13 @@ export default class PanelDeControlPage {
 
     openModal(user: any): void {
         console.log(user);
+        this.usuarioSeleccionado = user;
         console.log(this.estadistica.usuarios.find((usuario) => usuario.idUser == user.id));
-        this.selectedUser = this.estadistica.usuarios.find((usuario) => usuario.idUser == user.id);
-        if (this.selectedUser != undefined) {
-            this.selectedUser.fechaFin = this.convertTimestampToDate(this.selectedUser.fechaFin);
-            this.selectedUser.fechaInicio = this.convertTimestampToDate(this.selectedUser.fechaInicio);
-            this.selectedUser.minutosActivo = this.calculateMinutosActivo(this.selectedUser.fechaInicio, this.selectedUser.fechaFin);
-
+        this.estadisticasDelUserSeleccionado = this.estadistica.usuarios.find((usuario) => usuario.idUser == user.id);
+        if (this.estadisticasDelUserSeleccionado != undefined) {
+            this.estadisticasDelUserSeleccionado.fechaFin = this.convertTimestampToDate(this.estadisticasDelUserSeleccionado.fechaFin);
+            this.estadisticasDelUserSeleccionado.fechaInicio = this.convertTimestampToDate(this.estadisticasDelUserSeleccionado.fechaInicio);
+            this.estadisticasDelUserSeleccionado.minutosActivo = this.calculateMinutosActivo(this.estadisticasDelUserSeleccionado.fechaInicio, this.estadisticasDelUserSeleccionado.fechaFin);
         }
         this.modalService.open(this.userDetailModal);
     }
