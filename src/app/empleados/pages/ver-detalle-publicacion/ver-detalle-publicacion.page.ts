@@ -7,8 +7,10 @@ import { EEstadoRegistro } from '../../../core/enums/estado-registro.enum';
 import { ETipoDeUsuario } from '../../../core/enums/tipo-de-usuario.enum';
 import { IAreaDeTrabajo } from '../../../core/interfaces/area-de-trabajo.interface';
 import { IEmpleado } from '../../../core/interfaces/empleado.interface';
+import { IEstadistica } from '../../../core/interfaces/estadistica.interface';
 import { IPublicacion } from '../../../core/interfaces/publicacion.interface';
 import { IRegistro } from '../../../core/interfaces/registro.interface';
+import { EstadisticasService } from '../../../core/services/estadisticas.service';
 import { NotificacionregistroService } from '../../../core/services/notificacionregistro.service';
 import { PublicacionesService } from '../../../core/services/publicaciones.service';
 import { RegistroService } from '../../../core/services/registro.service';
@@ -38,12 +40,14 @@ export default class VerDetallePublicacionPage {
     private readonly modalSrv = inject(ModalService);
     private readonly spinnerSrv = inject(SpinnerService);
     private readonly notificacionregistroSrv = inject(NotificacionregistroService);
+    private readonly estadisticasSrv = inject(EstadisticasService);
     publicacion?: IPublicacion;
     usuario?: TTodosLosUsuarios;
     registro?: IRegistro | null;
     tipoDeUsuario = ETipoDeUsuario;
     estadoRegistro = EEstadoRegistro;
     nombreAreaDeTrabajo?: TEstructuraFormValida<string>;
+    estadistica!: IEstadistica;
     @Input() id?: string;
 
     async ngOnInit(): Promise<void> {
@@ -54,6 +58,16 @@ export default class VerDetallePublicacionPage {
         if (this.registro?.estado === EEstadoRegistro.aceptadoEmpresa) {
             await this.notificacionregistroSrv.marcarNotificacionComoVista(this.id, 'empleado');
         }
+    }
+
+
+    async obtenerEstadisticas() {
+        await this.estadisticasSrv.getUno().then((estadistica) => {
+            this.estadistica = estadistica;
+            console.log(this.estadistica);
+        }).catch(async (error) => {
+            console.log(error);
+        });
     }
 
     async getUsuarioLogeado(): Promise<void> {
@@ -159,16 +173,26 @@ export default class VerDetallePublicacionPage {
             avisadoEmpleado: true
         };
 
+        this.spinnerSrv.mostrar();
         await this.registroSrv.guardar(registro)
             .then(async () => {
                 this.toastSrv.success('Te postulaste exitosamente');
+                await this.obtenerEstadisticas().then(async () => {
+                    const usuarioExistente = this.estadistica.usuarios.find(u => u.idUser === this.usuario?.id);
+                    if (usuarioExistente) {
+                        usuarioExistente.cantidadDePostulaciones = usuarioExistente.cantidadDePostulaciones ? usuarioExistente.cantidadDePostulaciones += 1 : 1;
+                        await this.estadisticasSrv.guardar(this.estadistica).then(async () => {
+                            await this.routerSrv.navigateByUrl('/publicaciones/ver-todas');
+                        });
+                    }
+                });
             })
-            .catch((error: Error) => {
+            .catch(async (error: Error) => {
                 console.error(error);
                 this.toastSrv.error('Ha ocurrido un error al postularte');
+                await this.routerSrv.navigateByUrl('/publicaciones/ver-todas');
             })
             .finally(async () => {
-                await this.routerSrv.navigateByUrl('/publicaciones/ver-todas');
                 this.spinnerSrv.ocultar();
             });
     }
