@@ -15,9 +15,9 @@ carga horaria ( full-time, part-time)
 remuneración (opcional)
 nivel ( trainee, junior, semi-senior, senior )
 
-Para ello, deberán realizar una compra de packs, lo que habilita a las empresas publicar
+Para ello, deberán realizar una compra de packs, lo que habilita a las empresas publicar.
 
-Los usuarios, por su parte, podrán registrarse para acceder a las ofertas de empleo y postularse a las mismas de forma gratuita, pero además existirá la posibilidad de comprar una suscripción para estar primero en los listados de sus postulaciones. Una vez postulados, tendrán acceso a una sección de "Mis Postulaciones", donde podrán ver todas las ofertas a las que se han inscrito.
+Los usuarios empleados, por su parte, podrán registrarse para acceder a las ofertas de empleo y postularse a las mismas de forma gratuita, pero además existirá la posibilidad de comprar una suscripción para estar primero en los listados de sus postulaciones. Una vez postulados, tendrán acceso a una sección donde podrán ver todas las ofertas a las que se han inscrito.
 
 Las empresas serán capaces de ver la información de los postulantes. La plataforma permitirá a las empresas gestionar sus publicaciones de empleo, editarlas y eliminarlas. La creación es en base a la compra de al menos 1 pack con publicaciones disponibles
 
