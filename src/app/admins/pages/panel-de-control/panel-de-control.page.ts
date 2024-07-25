@@ -44,7 +44,7 @@ export default class PanelDeControlPage {
     countPublicacionesFinalizadas: number = 0;
     countPublicaciones: number = 0;
     dineroGanado?: number;
-    usuarios: (any)[] = []; // Actualizado para reflejar los tipos casteados
+    usuarios: (any)[] = [];
     ETipoDeUsuario = ETipoDeUsuario;
     estadistica!: IEstadistica;
     usuarioSeleccionado!: any;
@@ -63,13 +63,7 @@ export default class PanelDeControlPage {
 
     openModal(user: any): void {
         console.log(user);
-        if (user.tipoDeUsuario == ETipoDeUsuario.empleado) {
-            this.usuarioSeleccionado = user as IEmpleado;
-        } else if (user.tipoDeUsuario == ETipoDeUsuario.empresa) {
-            this.usuarioSeleccionado = user as IEmpresa;
-        } else {
-            this.usuarioSeleccionado = user as IAdmin;
-        }
+        this.usuarioSeleccionado = user;
         console.log(this.estadistica.usuarios.find((usuario) => usuario.idUser == user.id));
         this.estadisticasDelUserSeleccionado = this.estadistica.usuarios.find((usuario) => usuario.idUser == user.id);
         if (this.estadisticasDelUserSeleccionado != undefined) {
@@ -150,8 +144,8 @@ export default class PanelDeControlPage {
 
             // Filtrar publicaciones pausadas 
             this.publicacionesPausadas = todasPublicaciones.filter(publicacion => publicacion.estado === EEstadoPublicacion.pausada);
-            // Filtrar publicaciones finalizadas
 
+            // Filtrar publicaciones finalizadas
             this.publicacionesFinalizadas = todasPublicaciones.filter(publicacion => publicacion.estado === EEstadoPublicacion.finalizada);
 
             // Actualizar las propiedades de las publicaciones con el área de trabajo
@@ -159,8 +153,6 @@ export default class PanelDeControlPage {
                 ...publicacion,
                 areaDeTrabajo: (publicacion.areaDeTrabajo as any).nombre
             }));
-
-            // Guardar las publicaciones activas y pausadas si es necesario
 
             this.countPublicacionesActivas = this.publicacionesActivas.length;
             this.countPublicacionesPausadas = this.publicacionesPausadas.length;

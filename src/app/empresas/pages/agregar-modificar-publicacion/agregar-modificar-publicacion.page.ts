@@ -10,8 +10,10 @@ import { ENivel } from '../../../core/enums/nivel.enum';
 import { ETiempoDeTrabajo } from '../../../core/enums/tiempo-de-trabajo.enum';
 import { IAreaDeTrabajo } from '../../../core/interfaces/area-de-trabajo.interface';
 import { IEmpresa } from '../../../core/interfaces/empresa.interface';
+import { IEstadistica } from '../../../core/interfaces/estadistica.interface';
 import { IPublicacion } from '../../../core/interfaces/publicacion.interface';
 import { AreasDeTrabajoService } from '../../../core/services/areas-de-trabajo.service';
+import { EstadisticasService } from '../../../core/services/estadisticas.service';
 import { GeoRefService } from '../../../core/services/geo-ref.service';
 import { PublicacionesService } from '../../../core/services/publicaciones.service';
 import { UsuariosService } from '../../../core/services/usuarios.service';
@@ -41,6 +43,7 @@ export default class AgregarModificarPublicacionPage {
     private readonly spinnerSrv = inject(SpinnerService);
     private readonly areasSrv = inject(AreasDeTrabajoService);
     private readonly geoRefSrv = inject(GeoRefService);
+    private readonly estadisticasSrv = inject(EstadisticasService);
 
     readonly formasDeTrabajo: EFormasDeTrabajo[] = Object.values(EFormasDeTrabajo);
     readonly niveles: ENivel[] = Object.values(ENivel);
@@ -54,6 +57,7 @@ export default class AgregarModificarPublicacionPage {
     areasVisibles?: IAreaDeTrabajo[];
     provincias?: string[];
     localidades?: string[];
+    estadistica!: IEstadistica;
 
     @Input() id?: string;
 
@@ -190,6 +194,16 @@ export default class AgregarModificarPublicacionPage {
     }
 
 
+    async obtenerEstadisticas() {
+        await this.estadisticasSrv.getUno().then((estadistica) => {
+            this.estadistica = estadistica;
+            console.log(this.estadistica);
+        }).catch(async (error) => {
+            console.log(error);
+        });
+    }
+
+
     getForm(campo: keyof IPublicacion) {
         return this.form.get(campo);
     }
@@ -281,7 +295,7 @@ export default class AgregarModificarPublicacionPage {
 
 
     async altaPublicacion(): Promise<void> {
-
+        let modifica = true;
         if (!this.form) { return; }
 
         if (this.form.invalid) {
@@ -307,6 +321,7 @@ export default class AgregarModificarPublicacionPage {
         }
         else {
             //Solo si es alta, establezco fecha de inicio y fin, y el estado como activa
+            modifica = false;
             publicacion.inicio = new Date();
             publicacion.fin = new Date();
             publicacion.fin.setMonth(publicacion.inicio.getMonth() + 2);
@@ -314,9 +329,22 @@ export default class AgregarModificarPublicacionPage {
         }
 
         await this.publicacionSrv.guardar(publicacion).then(async () => {
-            await this.actualizarPackDeLaEmpresa();
-            this.toastSrv.success('Se guardaron los cambios de la publicación con éxito');
+            await this.actualizarPackDeLaEmpresa().then(async () => {
+                if (!modifica) {
+                    await this.obtenerEstadisticas().then(async () => {
+                        const usuarioExistente = this.estadistica.usuarios.find(u => u.idUser === this.empresa?.id);
+                        if (usuarioExistente) {
+                            usuarioExistente.cantidadDePublicaciones = usuarioExistente.cantidadDePublicaciones ? usuarioExistente.cantidadDePublicaciones += 1 : 1;
+                            await this.estadisticasSrv.guardar(this.estadistica).then(async () => {
+                                this.toastSrv.success('Se guardaron los cambios de la publicación con éxito');
+                            });
+                        }
+                    });
+                }
+            });
             await this.routerSrv.navigateByUrl('mis-publicaciones/listar-publicaciones');
+
+
         }).catch((error: Error) => {
             console.error(error);
             this.toastSrv.error(`Ha ocurrido un error al intentar ${this.titulo} la publicación`);
