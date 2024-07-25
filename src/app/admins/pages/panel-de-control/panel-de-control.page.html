@@ -112,7 +112,7 @@
                             </thead>
                             <tbody>
                                 @for (user of usuarios; track $index) {
-                                @if (user.tipo != ETipoDeUsuario.admin ) {
+
                                 <tr>
 
                                     <td><img [src]="user?.pathFoto ?? fotoDefault"
@@ -123,9 +123,21 @@
                                     <td>{{ user.cuit?user.cuit:"No lo ingreso" }}</td>
                                     }@else if (user.tipo==ETipoDeUsuario.empleado) {
                                     <td>{{ user.dni?user.dni:"No lo ingreso" }}</td>
+                                    }@else {
+                                    <td>{{ "No disponible" }}</td>
+
                                     }
+
+                                    @if (user.tipo!=ETipoDeUsuario.admin) {
                                     <td>{{ user.telefono?user.telefono:"No lo ingreso" }}</td>
+                                    }@else {
+                                    <td>{{ "No disponible" }}</td>}
+
+                                    @if (user.tipo!=ETipoDeUsuario.admin) {
                                     <td>{{ user.provincia?user.provincia:"No la ingreso" }}</td>
+                                    }@else {
+                                    <td>{{ "No disponible" }}</td>}
+
                                     <td>{{ user.tipo}}</td>
                                     <td>
                                         <button type="button" class="btn btn-outline-success mx-2"
@@ -135,7 +147,7 @@
                                     </td>
                                 </tr>
                                 }
-                                }
+
                             </tbody>
                         </table>
                     </div>
