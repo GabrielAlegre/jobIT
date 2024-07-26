@@ -5,9 +5,11 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 import { EEstadoPago } from '../../../core/enums/estado-pago.enum';
 import { IEmpresa } from '../../../core/interfaces/empresa.interface';
+import { IEstadistica } from '../../../core/interfaces/estadistica.interface';
 import { IPack } from '../../../core/interfaces/pack.interface';
 import { IPago } from '../../../core/interfaces/pago.interface';
 import { ITarjeta } from '../../../core/interfaces/tarjeta.interface';
+import { EstadisticasService } from '../../../core/services/estadisticas.service';
 import { PacksService } from '../../../core/services/packs.service';
 import { PagosService } from '../../../core/services/pagos.service';
 import { UsuariosService } from '../../../core/services/usuarios.service';
@@ -32,6 +34,8 @@ export default class ComprarPackPage implements OnInit {
     private readonly authSrv = inject(AuthService);
     private readonly packsSrv = inject(PacksService);
     private readonly pagosSrv = inject(PagosService);
+    private readonly estadisticasSrv = inject(EstadisticasService);
+    estadistica!: IEstadistica;
     packs?: IPack[];
     empresa?: IEmpresa;
     selectedPack?: IPack;
@@ -50,6 +54,16 @@ export default class ComprarPackPage implements OnInit {
 
         this.tienePacksActivo = this.ultimoPackConPublicacionesRestantes();
     }
+
+    async obtenerEstadisticas() {
+        await this.estadisticasSrv.getUno().then((estadistica) => {
+            this.estadistica = estadistica;
+            console.log(this.estadistica);
+        }).catch(async (error) => {
+            console.log(error);
+        });
+    }
+
 
     async getUsuarioLogeado(): Promise<void> {
         const usuario = await this.authSrv.usuarioLogeadoBBDD();
@@ -90,8 +104,17 @@ export default class ComprarPackPage implements OnInit {
 
                 await this.usuarioSrv.actualizar(this.empresa).then(
                     async () => {
-                        await this.guardarPago();
-                        this.toastSrv.success('Compra realizada con éxito');
+                        await this.guardarPago().then(async () => {
+                            await this.obtenerEstadisticas().then(async () => {
+                                const usuarioExistente = this.estadistica.usuarios.find(u => u.idUser === this.empresa?.id);
+                                if (usuarioExistente) {
+                                    usuarioExistente.dineroGastado = usuarioExistente.dineroGastado ? usuarioExistente.dineroGastado += Number(this.selectedPack?.precio) : Number(this.selectedPack?.precio);
+                                    await this.estadisticasSrv.guardar(this.estadistica).then(async () => {
+                                        this.toastSrv.success('Compra realizada con éxito');
+                                    });
+                                }
+                            });
+                        });;
                         this.routerSrv.navigateByUrl('/mis-packs/listar-packs');
                     }
                 );
