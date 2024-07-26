@@ -214,12 +214,24 @@
                 estadisticasDelUserSeleccionado?.fechaInicio?.toLocaleDateString()}}
                 -
                 {{estadisticasDelUserSeleccionado?.fechaInicio?.toLocaleTimeString()}}</p>
-            <p><strong>Fecha del ultimo de cierre de sesión:</strong> {{
+            <p><strong>Fecha del ultimo de cierre de sesión:</strong>
+                @if(estadisticasDelUserSeleccionado?.fechaFin?.getTime()==estadisticasDelUserSeleccionado?.fechaInicio?.getTime()){
+                en sesión activa
+                }@else{
+
+                {{
                 estadisticasDelUserSeleccionado?.fechaFin?.toLocaleDateString()}}
                 -
-                {{estadisticasDelUserSeleccionado?.fechaFin?.toLocaleTimeString()}}</p>
-            <p><strong>Minutos Activo de la ultima sesión:</strong> {{ estadisticasDelUserSeleccionado?.minutosActivo }}
-                minutos</p>
+                {{estadisticasDelUserSeleccionado?.fechaFin?.toLocaleTimeString()}}
+                }</p>
+
+            <p><strong>Minutos Activo de la ultima sesión:</strong>
+                @if(estadisticasDelUserSeleccionado?.fechaFin?.getTime()==estadisticasDelUserSeleccionado?.fechaInicio?.getTime()){
+                en sesión activa
+                }@else{
+                {{ estadisticasDelUserSeleccionado?.minutosActivo }} minutos
+                }
+            </p>
             @if (usuarioSeleccionado.tipo == ETipoDeUsuario.empleado) {
             <p><strong>Cantidad de Postulaciones:</strong> {{ estadisticasDelUserSeleccionado?.cantidadDePostulaciones
                 || 'No se postulo a ninguna publicación'}}</p>
