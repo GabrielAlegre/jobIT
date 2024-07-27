@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RouterModule } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 import { ETipoDeUsuario } from '../../../core/enums/tipo-de-usuario.enum';
+import { IEstadistica } from '../../../core/interfaces/estadistica.interface';
 import { IUsuario } from '../../../core/interfaces/usuario.interface';
+import { EstadisticasService } from '../../../core/services/estadisticas.service';
 import { UsuariosService } from '../../../core/services/usuarios.service';
 import { IValidadorOpciones } from '../../../shared/interfaces/validador-opciones.interface';
 import { RutaValidaPipe } from '../../../shared/pipes/ruta-valida.pipe';
@@ -33,6 +35,8 @@ export default class RegistrarsePage {
     private readonly validadorSrv = inject(ValidadorService);
     private readonly usuarioSrv = inject(UsuariosService);
     readonly tipos: ETipoDeUsuario[] = Object.values(ETipoDeUsuario);
+    private readonly estadisticasSrv = inject(EstadisticasService);
+    estadistica!: IEstadistica;
 
     form: FormGroup = this.formBuilder.group<IRegistrarse>({
         correo: ['', {
@@ -83,6 +87,19 @@ export default class RegistrarsePage {
         return this.validadorSrv.mensajeError(this.form, field, options);
     }
 
+    async ngOnInit(): Promise<void> {
+        await this.obtenerEstadisticas();
+    }
+
+    async obtenerEstadisticas() {
+        await this.estadisticasSrv.getUno().then((estadistica) => {
+            this.estadistica = estadistica;
+            console.log(this.estadistica);
+        }).catch(async (error) => {
+            console.log(error);
+        });
+    }
+
     async enviarForm(): Promise<void> {
 
         if (this.form.invalid) {
@@ -97,8 +114,7 @@ export default class RegistrarsePage {
             .catch((error: any) => {
                 console.error(error);
                 this.toastSrv.error(error?.message || error?.code);
-            })
-            .finally(() => { this.spinnerSrv.ocultar(); });
+            });
 
         if (!usuario) {
             this.toastSrv.error('No se pudo registrar el usuario');
@@ -111,14 +127,27 @@ export default class RegistrarsePage {
 
         await this.usuarioSrv.guardar(_usuario)
             .then(async () => {
-                this.toastSrv.success('Se registro al usuario');
-                this.toastSrv.info('Ha iniciado sessión');
-                await this.routerSrv.navigateByUrl('/');
+                this.estadistica.usuarios.push({
+                    idUser: _usuario.id,
+                    fechaInicio: new Date(),
+                    fechaFin: new Date(),
+                    minutosActivo: 0,
+                    cantidadDePostulaciones: 0,
+                    cantidadDePublicaciones: 0,
+                    dineroGastado: 0,
+                    vecesQueIngreso: 1
+                });
+
+                await this.routerSrv.navigateByUrl('/').then(async () => {
+                    await this.estadisticasSrv.guardar(this.estadistica);
+                    this.toastSrv.success('Se registro al usuario');
+                    this.toastSrv.info('Ha iniciado sessión');
+
+                });
             })
             .catch((error: any) => {
                 this.toastSrv.error(error?.message || error?.code);
             })
             .finally(() => { this.spinnerSrv.ocultar(); });
-
     }
 }

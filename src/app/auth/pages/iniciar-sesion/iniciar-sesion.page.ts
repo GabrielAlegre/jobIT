@@ -103,21 +103,6 @@ export default class IniciarSesionPage {
                         usuarioExistente.vecesQueIngreso += 1;
                         usuarioExistente.fechaInicio = new Date();
                         usuarioExistente.fechaFin = new Date();
-                    } else {
-                        // Si el usuario no está, agregarlo con valores inicializados
-                        if (this.userLog) {
-                            this.estadistica.usuarios.push({
-                                idUser: this.userLog.id,
-                                fechaInicio: new Date(),
-                                fechaFin: new Date(),
-                                minutosActivo: 0,
-                                cantidadDePostulaciones: 0,
-                                cantidadDePublicaciones: 0,
-                                dineroGastado: 0,
-                                vecesQueIngreso: 1
-                            });
-
-                        }
                     }
 
                     this.estadistica.visitas += 1;
@@ -156,7 +141,6 @@ export default class IniciarSesionPage {
             this.toastSrv.error('No se pudo recuperar los datos del usuario');
             return;
         }
-        console.log(usuario);
         this.userLog = usuario;
     }
 }
