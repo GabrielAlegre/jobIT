@@ -6,8 +6,10 @@ import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../auth/services/auth.service';
 import { EEstadoPago } from '../../../core/enums/estado-pago.enum';
 import { IEmpleado } from '../../../core/interfaces/empleado.interface';
+import { IEstadistica } from '../../../core/interfaces/estadistica.interface';
 import { IPago } from '../../../core/interfaces/pago.interface';
 import { ISuscripcion } from '../../../core/interfaces/suscripcion.interface';
+import { EstadisticasService } from '../../../core/services/estadisticas.service';
 import { PagosService } from '../../../core/services/pagos.service';
 import { SuscripcionesService } from '../../../core/services/suscripciones.service';
 import { UsuariosService } from '../../../core/services/usuarios.service';
@@ -32,6 +34,8 @@ export default class ComprarSuscripcionPage implements OnInit {
     private readonly formBuilder: FormBuilder = inject(FormBuilder);
     private readonly usuarioSrv = inject(UsuariosService);
     private readonly pagosSrv = inject(PagosService);
+    private readonly estadisticasSrv = inject(EstadisticasService);
+    estadistica!: IEstadistica;
     suscripcion?: ISuscripcion;
     valida: boolean = false;
     empleado?: IEmpleado;
@@ -85,6 +89,16 @@ export default class ComprarSuscripcionPage implements OnInit {
         }
     }
 
+    async obtenerEstadisticas() {
+        await this.estadisticasSrv.getUno().then((estadistica) => {
+            this.estadistica = estadistica;
+            console.log(this.estadistica);
+        }).catch(async (error) => {
+            console.log(error);
+        });
+    }
+
+
     async getUsuarioLogeado(): Promise<void> {
         const usuario = await this.authSrv.usuarioLogeadoBBDD();
 
@@ -122,8 +136,17 @@ export default class ComprarSuscripcionPage implements OnInit {
 
                 await this.usuarioSrv.actualizar(this.empleado).then(
                     async () => {
-                        await this.guardarPago();
-                        this.toastSrv.success('Compra realizada con éxito');
+                        await this.guardarPago().then(async () => {
+                            await this.obtenerEstadisticas().then(async () => {
+                                const usuarioExistente = this.estadistica.usuarios.find(u => u.idUser === this.empleado?.id);
+                                if (usuarioExistente) {
+                                    usuarioExistente.dineroGastado = usuarioExistente.dineroGastado ? usuarioExistente.dineroGastado += Number(this.suscripcion?.precio) : Number(this.suscripcion?.precio);
+                                    await this.estadisticasSrv.guardar(this.estadistica).then(async () => {
+                                        this.toastSrv.success('Compra realizada con éxito');
+                                    });
+                                }
+                            });
+                        });;
                         this.valida = true;
                         this.routerSrv.navigateByUrl('/mis-suscripciones/listar-suscripciones');
                     }
