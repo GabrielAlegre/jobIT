@@ -5,15 +5,7 @@ El proyecto consistirá en el desarrollo de una aplicación web destinada a faci
 
 Las empresas podrán registrarse en la plataforma para publicar ofertas de trabajo, proporcionando información detallada sobre el puesto como:
 
-título
-descripción
-estado de la publicación ( activa, pausada o finalizada)
-forma de trabajo (remota, presencial o  híbrida)
-área de trabajo (front-end, back-end, mobile, etc)
-ubicación (localidad, provincia , domicilio)
-carga horaria ( full-time, part-time)
-remuneración (opcional)
-nivel ( trainee, junior, semi-senior, senior )
+título, descripción, estado de la publicación (activa, pausada o finalizada), forma de trabajo (remota, presencial o  híbrida), área de trabajo (front-end, back-end, mobile, etc), ubicación (localidad, provincia , domicilio), carga horaria (full-time, part-time), remuneración (opcional), nivel (trainee, junior, semi-senior, senior )
 
 Para ello, deberán realizar una compra de packs, lo que habilita a las empresas publicar.
 
