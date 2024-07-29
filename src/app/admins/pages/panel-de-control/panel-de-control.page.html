@@ -198,13 +198,13 @@
 
         </div>
         <div class="modal-body">
-            @if (usuarioSeleccionado.pathFoto) {
             <div class="foto-circulo centrado">
+                @if (usuarioSeleccionado.pathFoto) {
                 <img [src]="usuarioSeleccionado.pathFoto" alt="Foto" class="foto">
+                } @else {
+                <img [src]="fotoDefault" alt="Foto" class="foto">
+                }
             </div>
-            } @else {
-            <img [src]="fotoDefault" alt="Foto" class="foto">
-            }
 
             <p class="text-center text-info mb-4"><strong style="font-size: larger;">{{usuarioSeleccionado.nombre}}
                     {{usuarioSeleccionado.apellido ? usuarioSeleccionado.apellido : ""}}</strong></p>
