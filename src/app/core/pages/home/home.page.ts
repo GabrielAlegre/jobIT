@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { RutaValidaPipe } from '../../../shared/pipes/ruta-valida.pipe';
 import { SpinnerService } from '../../../shared/services/spinner.service';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ICardsDeInicio } from '../../interfaces/cards-de-inicio.interface';
@@ -10,7 +13,7 @@ import { EstadisticasService } from '../../services/estadisticas.service';
 @Component({
     selector: 'core-home',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, RouterModule, RutaValidaPipe, ReactiveFormsModule],
     templateUrl: './home.page.html',
     styleUrl: './home.page.scss'
 })
