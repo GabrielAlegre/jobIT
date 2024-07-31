@@ -14,7 +14,7 @@
     }
 </style>
 
-<body>
+<body class="p-0">
     <main>
         <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -29,10 +29,12 @@
                         alt="Technology Office" class="d-block w-100">
                     <div class="container">
                         <div class="carousel-caption text-start text-info">
-                            <h1>Encuentra al talento perfecto para tu empresa.</h1>
-                            <p>Conéctate con profesionales calificados en diversas áreas tecnológicas.</p>
-                            <p><a [routerLink]="'/auth/registrarse' | rutaValida"
-                                    class="btn btn-lg btn-primary">Regístrate como Empresa</a></p>
+                            <h1>Encuentra al talento perfecto para tu empresa!</h1>
+                            <p>Publica ofertas de empleo fácilmente. Encuentra el candidato ideal en diversas áreas
+                                tecnológicas.</p>
+                            <p><a [routerLink]="'/mis-publicaciones/agregar-publicacion' | rutaValida"
+                                    class="btn btn-lg btn-primary">Agregar
+                                    publicación</a></p>
                         </div>
                     </div>
                 </div>
@@ -41,10 +43,11 @@
                         alt="Technology Office" class="d-block w-100">
                     <div class="container">
                         <div class="carousel-caption text-info">
-                            <h1>Publica ofertas de empleo fácilmente.</h1>
-                            <p>Encuentra el candidato ideal para tus necesidades de proyecto.</p>
-                            <p> <a [routerLink]="'/auth/iniciar-sesion' | rutaValida" class="btn btn-lg btn-primary">Más
-                                    información</a></p>
+                            <h1>Compra un pack de publicaciones!</h1>
+                            <p>Elige entre una variedad de packs para publicar tus vacantes. Encuentra el plan perfecto
+                                que se adapte a tus necesidades de contratación.</p>
+                            <p> <a [routerLink]="'/mis-packs/comprar-pack' | rutaValida" class="btn btn-lg btn-primary">
+                                    Comprar pack</a></p>
                         </div>
                     </div>
                 </div>
@@ -53,12 +56,13 @@
                         class="d-block w-100">
                     <div class="container">
                         <div class="carousel-caption text-end text-info">
-                            <h1>Gestiona las postulaciones eficientemente.</h1>
+                            <h1>Gestiona tus publicaciones eficientemente.</h1>
                             <p>Accede a un panel de control completo para manejar todos tus procesos de contratación.
                             </p>
                             <p>
-                                <a [routerLink]="'/auth/iniciar-sesion' | rutaValida" class="btn btn-lg btn-primary">Ver
-                                    postulaciones</a>
+                                <a [routerLink]="'/mis-publicaciones/listar-publicaciones' | rutaValida"
+                                    class="btn btn-lg btn-primary">Ver
+                                    publicaciones</a>
                         </div>
                     </div>
                 </div>
@@ -74,21 +78,25 @@
         </div>
 
         <div class="container marketing">
-            <div class="row">
+            <h3 class="text-start my-4 border-top pb-3 pt-3"><em>Contrata al mejor talento de manera rápida y
+                    eficiente en sencillos pasos:</em> </h3>
+            <div class="row mt-3">
                 <div class="col-lg-4">
                     <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Regístrate"
+                        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Compra Packs"
                         preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <title>Regístrate</title>
+                        <title>Compra Packs</title>
                         <circle cx="70" cy="70" r="70" fill="#f0f0f0" />
                         <text x="50%" y="50%" fill="#333" font-size="50" font-family="FontAwesome" text-anchor="middle"
                             dy=".3em">
-                            &#xf007; <!-- Código del ícono de usuario en FontAwesome -->
+                            &#xf291; <!-- Código del ícono de compra o carrito en FontAwesome -->
                         </text>
                     </svg>
-                    <h2>Regístrate</h2>
-                    <p>Regístrate en nuestra plataforma y empieza a publicar tus ofertas de empleo.</p>
-                    <p><a class="btn btn-secondary" href="#">Ver detalles &raquo;</a></p>
+                    <h2>1. Compra Packs</h2>
+                    <p>Elige el pack adecuado para tus necesidades de contratación y empieza a publicar ofertas de
+                        empleo.</p>
+                    <p><a class="btn btn-secondary" [routerLink]="'/mis-packs/comprar-pack' | rutaValida">Comprar pack
+                            &raquo;</a></p>
                 </div>
                 <div class="col-lg-4">
                     <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
@@ -101,29 +109,34 @@
                             &#xf15c; <!-- Código del ícono de documento en FontAwesome -->
                         </text>
                     </svg>
-                    <h2>Publica una oferta</h2>
+                    <h2>2. Publica una oferta</h2>
                     <p>Publica y gestiona tus ofertas de empleo para encontrar los mejores talentos en tecnología.</p>
-                    <p><a class="btn btn-secondary" href="#">Ver detalles &raquo;</a></p>
+                    <p><a class="btn btn-secondary"
+                            [routerLink]="'/mis-publicaciones/agregar-publicacion' | rutaValida">Publicar oferta
+                            &raquo;</a></p>
                 </div>
                 <div class="col-lg-4">
                     <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Postúlate a trabajos"
+                        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gestiona candidatos"
                         preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <title>Postúlate a trabajos</title>
+                        <title>Gestiona candidatos</title>
                         <circle cx="70" cy="70" r="70" fill="#f0f0f0" />
                         <text x="50%" y="50%" fill="#333" font-size="50" font-family="FontAwesome" text-anchor="middle"
                             dy=".3em">
                             &#xf0e7; <!-- Código del ícono de aplicación en FontAwesome -->
                         </text>
                     </svg>
-                    <h2>Gestiona candidatos</h2>
+                    <h2>3. Gestiona candidatos</h2>
                     <p>Administra las postulaciones recibidas y selecciona a los mejores candidatos para tus vacantes.
                     </p>
-                    <p><a class="btn btn-secondary" href="#">Ver detalles &raquo;</a></p>
+                    <p><a class="btn btn-secondary"
+                            [routerLink]="'/mis-publicaciones/listar-publicaciones' | rutaValida">Gestionar
+                            publicaciones
+                            &raquo;</a></p>
                 </div>
             </div>
 
-            <hr class="featurette-divider">
+            <hr class="featurette-divider mt-3">
 
             <div class="row featurette">
                 <div class="col-md-7">
@@ -167,8 +180,6 @@
                         alt="Technology Office" class="d-block w-100">
                 </div>
             </div>
-
-            <hr class="featurette-divider">
         </div>
     </main>
     <script src="path/to/bootstrap.bundle.min.js"></script>
