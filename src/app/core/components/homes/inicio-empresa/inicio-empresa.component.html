@@ -1,11 +1,4 @@
-@if (!this.usuario || this.usuario.tipo!= ETipoDeUsuario.empresa) {
-<app-inicio-default />
-}@else if (this.usuario.tipo===ETipoDeUsuario.empresa) {
-<empresa-inicio-empresa />
-
-}
-
-<!-- <style>
+<style>
     .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -20,7 +13,6 @@
         }
     }
 </style>
-
 
 <body>
     <main>
@@ -37,10 +29,10 @@
                         alt="Technology Office" class="d-block w-100">
                     <div class="container">
                         <div class="carousel-caption text-start text-info">
-                            <h1>Encuentra tu próximo trabajo en tecnología.</h1>
-                            <p>Explora oportunidades en front-end, back-end, mobile y más.</p>
+                            <h1>Encuentra al talento perfecto para tu empresa.</h1>
+                            <p>Conéctate con profesionales calificados en diversas áreas tecnológicas.</p>
                             <p><a [routerLink]="'/auth/registrarse' | rutaValida"
-                                    class="btn btn-lg btn-primary">Regístrate hoy</a></p>
+                                    class="btn btn-lg btn-primary">Regístrate como Empresa</a></p>
                         </div>
                     </div>
                 </div>
@@ -49,8 +41,8 @@
                         alt="Technology Office" class="d-block w-100">
                     <div class="container">
                         <div class="carousel-caption text-info">
-                            <h1>Publica ofertas de empleo.</h1>
-                            <p>Empresas: Encuentren el talento adecuado para sus proyectos.</p>
+                            <h1>Publica ofertas de empleo fácilmente.</h1>
+                            <p>Encuentra el candidato ideal para tus necesidades de proyecto.</p>
                             <p> <a [routerLink]="'/auth/iniciar-sesion' | rutaValida" class="btn btn-lg btn-primary">Más
                                     información</a></p>
                         </div>
@@ -61,8 +53,9 @@
                         class="d-block w-100">
                     <div class="container">
                         <div class="carousel-caption text-end text-info">
-                            <h1>Gestiona tus postulaciones.</h1>
-                            <p>Accede a todas tus postulaciones y mantén un seguimiento fácil.</p>
+                            <h1>Gestiona las postulaciones eficientemente.</h1>
+                            <p>Accede a un panel de control completo para manejar todos tus procesos de contratación.
+                            </p>
                             <p>
                                 <a [routerLink]="'/auth/iniciar-sesion' | rutaValida" class="btn btn-lg btn-primary">Ver
                                     postulaciones</a>
@@ -90,11 +83,11 @@
                         <circle cx="70" cy="70" r="70" fill="#f0f0f0" />
                         <text x="50%" y="50%" fill="#333" font-size="50" font-family="FontAwesome" text-anchor="middle"
                             dy=".3em">
-                            &#xf007;
+                            &#xf007; <!-- Código del ícono de usuario en FontAwesome -->
                         </text>
                     </svg>
                     <h2>Regístrate</h2>
-                    <p>Únete a nuestra plataforma y empieza a buscar oportunidades de empleo en tecnología.</p>
+                    <p>Regístrate en nuestra plataforma y empieza a publicar tus ofertas de empleo.</p>
                     <p><a class="btn btn-secondary" href="#">Ver detalles &raquo;</a></p>
                 </div>
                 <div class="col-lg-4">
@@ -105,12 +98,11 @@
                         <circle cx="70" cy="70" r="70" fill="#f0f0f0" />
                         <text x="50%" y="50%" fill="#333" font-size="50" font-family="FontAwesome" text-anchor="middle"
                             dy=".3em">
-                            &#xf15c;
+                            &#xf15c; <!-- Código del ícono de documento en FontAwesome -->
                         </text>
                     </svg>
                     <h2>Publica una oferta</h2>
-                    <p>Las empresas pueden publicar ofertas de empleo y encontrar los mejores talentos en el área de
-                        sistemas.</p>
+                    <p>Publica y gestiona tus ofertas de empleo para encontrar los mejores talentos en tecnología.</p>
                     <p><a class="btn btn-secondary" href="#">Ver detalles &raquo;</a></p>
                 </div>
                 <div class="col-lg-4">
@@ -121,11 +113,12 @@
                         <circle cx="70" cy="70" r="70" fill="#f0f0f0" />
                         <text x="50%" y="50%" fill="#333" font-size="50" font-family="FontAwesome" text-anchor="middle"
                             dy=".3em">
-                            &#xf0e7;
+                            &#xf0e7; <!-- Código del ícono de aplicación en FontAwesome -->
                         </text>
                     </svg>
-                    <h2>Postúlate a trabajos</h2>
-                    <p>Accede a las ofertas de empleo y postúlate con un seguimiento fácil de tus postulaciones.</p>
+                    <h2>Gestiona candidatos</h2>
+                    <p>Administra las postulaciones recibidas y selecciona a los mejores candidatos para tus vacantes.
+                    </p>
                     <p><a class="btn btn-secondary" href="#">Ver detalles &raquo;</a></p>
                 </div>
             </div>
@@ -134,10 +127,10 @@
 
             <div class="row featurette">
                 <div class="col-md-7">
-                    <h2 class="featurette-heading">Encuentra el empleo perfecto. <span class="text-info">Fácil y
-                            rápido.</span></h2>
-                    <p class="lead">Nuestra plataforma te conecta con las mejores oportunidades en tecnología, desde
-                        desarrolladores front-end hasta expertos en ciberseguridad.</p>
+                    <h2 class="featurette-heading">Encuentra el talento ideal para tu empresa. <span
+                            class="text-info">Fácil y rápido.</span></h2>
+                    <p class="lead">Nuestra plataforma te ayuda a conectar con profesionales cualificados en tecnología,
+                        desde desarrolladores front-end hasta expertos en ciberseguridad.</p>
                 </div>
                 <div class="col-md-5">
                     <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=1744&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -149,10 +142,10 @@
 
             <div class="row featurette">
                 <div class="col-md-7 order-md-2">
-                    <h2 class="featurette-heading">Empresas: Encuentren su próximo talento. <span
-                            class="text-info">Conéctense con los mejores.</span></h2>
-                    <p class="lead">Publica ofertas de empleo y gestiona tus publicaciones con facilidad. Encuentra a
-                        los candidatos ideales para tu empresa.</p>
+                    <h2 class="featurette-heading">Publica y gestiona tus ofertas de empleo. <span
+                            class="text-info">Conéctate con los mejores candidatos.</span></h2>
+                    <p class="lead">Crea, publica y gestiona tus ofertas de empleo con facilidad. Encuentra al candidato
+                        adecuado para cada puesto en tu empresa.</p>
                 </div>
                 <div class="col-md-5 order-md-1">
                     <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -164,10 +157,10 @@
 
             <div class="row featurette">
                 <div class="col-md-7">
-                    <h2 class="featurette-heading">Postulantes: Gestiona tus aplicaciones. <span
+                    <h2 class="featurette-heading">Herramientas avanzadas de gestión de candidatos. <span
                             class="text-info">Sencillo y eficiente.</span></h2>
-                    <p class="lead">Administra tus postulaciones y mantente al tanto de tus oportunidades laborales con
-                        nuestra herramienta de gestión de aplicaciones.</p>
+                    <p class="lead">Utiliza nuestras herramientas para gestionar el proceso de selección, desde la
+                        recepción de postulaciones hasta la contratación.</p>
                 </div>
                 <div class="col-md-5">
                     <img src="https://images.unsplash.com/21/mac-glasses.JPG?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -179,4 +172,4 @@
         </div>
     </main>
     <script src="path/to/bootstrap.bundle.min.js"></script>
-</body> -->
+</body>

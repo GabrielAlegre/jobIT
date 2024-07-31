@@ -1,11 +1,4 @@
-@if (!this.usuario || this.usuario.tipo!= ETipoDeUsuario.empresa) {
-<app-inicio-default />
-}@else if (this.usuario.tipo===ETipoDeUsuario.empresa) {
-<empresa-inicio-empresa />
-
-}
-
-<!-- <style>
+<style>
     .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -90,7 +83,7 @@
                         <circle cx="70" cy="70" r="70" fill="#f0f0f0" />
                         <text x="50%" y="50%" fill="#333" font-size="50" font-family="FontAwesome" text-anchor="middle"
                             dy=".3em">
-                            &#xf007;
+                            &#xf007; <!-- Código del ícono de usuario en FontAwesome -->
                         </text>
                     </svg>
                     <h2>Regístrate</h2>
@@ -105,7 +98,7 @@
                         <circle cx="70" cy="70" r="70" fill="#f0f0f0" />
                         <text x="50%" y="50%" fill="#333" font-size="50" font-family="FontAwesome" text-anchor="middle"
                             dy=".3em">
-                            &#xf15c;
+                            &#xf15c; <!-- Código del ícono de documento en FontAwesome -->
                         </text>
                     </svg>
                     <h2>Publica una oferta</h2>
@@ -121,7 +114,7 @@
                         <circle cx="70" cy="70" r="70" fill="#f0f0f0" />
                         <text x="50%" y="50%" fill="#333" font-size="50" font-family="FontAwesome" text-anchor="middle"
                             dy=".3em">
-                            &#xf0e7;
+                            &#xf0e7; <!-- Código del ícono de aplicación en FontAwesome -->
                         </text>
                     </svg>
                     <h2>Postúlate a trabajos</h2>
@@ -179,4 +172,4 @@
         </div>
     </main>
     <script src="path/to/bootstrap.bundle.min.js"></script>
-</body> -->
+</body>

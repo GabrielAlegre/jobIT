@@ -107,7 +107,7 @@ export class MenuComponent implements OnInit {
                 this.usuario = undefined;
                 this.actualizarMenu();
                 this.toastSrv.info('Se cerró sesión');
-                await this.routerSrv.navigateByUrl('/');
+                await this.routerSrv.navigateByUrl('/auth/iniciar-sesion');
             })
             .catch((error: Error) => {
                 this.toastSrv.error(error.message);
