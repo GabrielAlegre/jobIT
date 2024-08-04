@@ -1,5 +1,7 @@
 # JobIt
 
+<p align="center"> <img src="[https://miro.medium.com/v2/resize:fit:679/1*yw0TnheAGN-LPneDaTlaxw.gi](https://en.it-jobs.de/static/rendering/results/logo_mobile.png)" alt="gabrielalegre" /> </p>
+
 ### Alcance: Aplicación Web de Búsqueda de Empleo en el sector IT                    
 El proyecto consistirá en el desarrollo de una aplicación web destinada a facilitar la búsqueda y publicación de ofertas de empleo del rubro de sistemas, involucrando tres roles principales: empresas (empleadores), usuarios (empleados) y administradores. 
 
