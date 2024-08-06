@@ -43,7 +43,8 @@
                         <div class="carousel-caption text-info">
                             <h1>Destaca entre los postulantes!</h1>
                             <p>Compra una suscripción premium para aparecer primero en las listas de postulaciones.</p>
-                            <p><a [routerLink]="'/publicaciones/ver-todas' | rutaValida" class="btn btn-lg btn-primary">
+                            <p><a [routerLink]="'/mis-suscripciones/comprar-suscripcion' | rutaValida"
+                                    class="btn btn-lg btn-primary">
                                     Comprar suscripción</a></p>
                         </div>
                     </div>
@@ -56,7 +57,7 @@
                             <h1>Gestiona tus postulaciones fácilmente.</h1>
                             <p>Accede a todas las ofertas a las que te has postulado desde un solo lugar.</p>
                             <p>
-                                <a [routerLink]="'/publicaciones/mis-postulaciones' | rutaValida"
+                                <a [routerLink]="'/publicaciones/ver-todas' | rutaValida"
                                     class="btn btn-lg btn-primary">Mis postulaciones</a>
                         </div>
                     </div>
@@ -78,6 +79,24 @@
             <div class="row mt-3">
                 <div class="col-lg-4">
                     <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
+                        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cargar y mantener tus datos"
+                        preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <title>Cargar y mantener tus datos</title>
+                        <circle cx="70" cy="70" r="70" fill="#f0f0f0" />
+                        <text x="50%" y="50%" fill="#333" font-size="50" font-family="FontAwesome" text-anchor="middle"
+                            dy=".3em">
+                            &#xf2bb; <!-- Código del ícono de perfil en FontAwesome -->
+                        </text>
+                    </svg>
+                    <h2>1. Gestiona tu perfil</h2>
+                    <p>Carga tu información básica, laboral, académica y el CV, permitiendo que
+                        las empresas te conozcan y aumente tus oportunidades de ser seleccionado.</p>
+                    <p><a class="btn btn-secondary" [routerLink]="'/mi-informacion' | rutaValida">Actualizar
+                            datos &raquo;</a>
+                    </p>
+                </div>
+                <div class="col-lg-4">
+                    <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
                         xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Explora ofertas"
                         preserveAspectRatio="xMidYMid slice" focusable="false">
                         <title>Explora ofertas</title>
@@ -87,9 +106,10 @@
                             &#xf291; <!-- Código del ícono de exploración en FontAwesome -->
                         </text>
                     </svg>
-                    <h2>1. Explora ofertas</h2>
-                    <p>Revisa las ofertas de empleo disponibles en diversas áreas tecnológicas y encuentra la ideal para
-                        ti.</p>
+                    <h2>2. Explora ofertas</h2>
+                    <p>Explora una amplia variedad de ofertas de empleo en diversas áreas tecnológicas y encuentra
+                        aquella que se alinee con tus habilidades, experiencia y aspiraciones.</p>
+
                     <p><a class="btn btn-secondary" [routerLink]="'/publicaciones/ver-todas' | rutaValida">Ver ofertas
                             &raquo;</a></p>
                 </div>
@@ -104,39 +124,36 @@
                             &#xf15c; <!-- Código del ícono de documento en FontAwesome -->
                         </text>
                     </svg>
-                    <h2>2. Postúlate</h2>
-                    <p>Aplica a las ofertas de empleo que más te interesen y destaca entre los postulantes.</p>
-                    <p><a class="btn btn-secondary" [routerLink]="'/publicaciones/mis-postulaciones' | rutaValida">Mis
-                            postulaciones
+                    <h2>3. Postúlate</h2>
+                    <p>Aplica a las ofertas de empleo que más te interesen para dar el
+                        siguiente paso en tu carrera y acceder a oportunidades que se ajusten a tus objetivos.</p>
+                    <p><a class="btn btn-secondary" [routerLink]="'/publicaciones/ver-todas' | rutaValida">Postulate!
                             &raquo;</a></p>
                 </div>
-                <div class="col-lg-4">
-                    <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gestiona perfil"
-                        preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <title>Gestiona perfil</title>
-                        <circle cx="70" cy="70" r="70" fill="#f0f0f0" />
-                        <text x="50%" y="50%" fill="#333" font-size="50" font-family="FontAwesome" text-anchor="middle"
-                            dy=".3em">
-                            &#xf007; <!-- Código del ícono de usuario en FontAwesome -->
-                        </text>
-                    </svg>
-                    <h2>3. Gestiona perfil</h2>
-                    <p>Mantén tu perfil actualizado y revisa tus postulaciones desde un solo lugar.</p>
-                    <p><a class="btn btn-secondary" [routerLink]="'/mi-informacion' | rutaValida">Mi perfil
-                            &raquo;</a></p>
+
+                <!-- Nota adicional -->
+                <div class="mt-4">
+                    <div class="alert alert-info">
+                        <strong>Consejo adicional:</strong> Considera adquirir una <a
+                            [routerLink]="'/mis-suscripciones/comprar-suscripcion' | rutaValida"
+                            class="alert-link text-decoration-underline">suscripción</a> para aumentar tus
+                        posibilidades de ser notado por las empresas. Las suscripciones pueden ofrecerte más
+                        visibilidad, mejorando tus chances de éxito en el proceso de búsqueda de empleo.
+                    </div>
                 </div>
+
+
             </div>
+
 
             <hr class="featurette-divider mt-3">
 
             <div class="row featurette">
                 <div class="col-md-7">
-                    <h2 class="featurette-heading">Encuentra el empleo ideal. <span class="text-info">Fácil y
-                            rápido.</span></h2>
-                    <p class="lead">Nuestra plataforma te ayuda a conectar con empresas que buscan profesionales
-                        cualificados en tecnología, desde desarrolladores front-end hasta expertos en ciberseguridad.
-                    </p>
+                    <h2 class="featurette-heading">Busca tu empleo perfecto. <span class="text-info">Rápido y
+                            eficiente.</span></h2>
+                    <p class="lead">Nuestra plataforma te permite buscar empleos que se ajusten a tus necesidades y
+                        habilidades de manera rápida y eficiente.</p>
                 </div>
                 <div class="col-md-5">
                     <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=1744&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -148,10 +165,10 @@
 
             <div class="row featurette">
                 <div class="col-md-7 order-md-2">
-                    <h2 class="featurette-heading">Publica tu perfil y encuentra empleo. <span
-                            class="text-info">Conéctate con las mejores empresas.</span></h2>
-                    <p class="lead">Crea y publica tu perfil profesional para que las empresas te encuentren. Encuentra
-                        el empleo adecuado para tus habilidades y experiencia.</p>
+                    <h2 class="featurette-heading">Compra una suscripción. <span class="text-info">Aumenta tus
+                            oportunidades.</span></h2>
+                    <p class="lead">Adquiere una suscripción premium para tener más chances de ser visto por las
+                        empresas y recibir mejores ofertas de empleo.</p>
                 </div>
                 <div class="col-md-5 order-md-1">
                     <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -163,10 +180,10 @@
 
             <div class="row featurette">
                 <div class="col-md-7">
-                    <h2 class="featurette-heading">Herramientas avanzadas de gestión de postulaciones. <span
-                            class="text-info">Sencillo y eficiente.</span></h2>
-                    <p class="lead">Utiliza nuestras herramientas para gestionar el proceso de postulación, desde la
-                        recepción de ofertas hasta la contratación.</p>
+                    <h2 class="featurette-heading">Mantén tu perfil actualizado. <span class="text-info">Muestra lo
+                            mejor de ti.</span></h2>
+                    <p class="lead">Mantener tu experiencia académica, laboral y tu CV siempre actualizados es clave
+                        para que las empresas vean la mejor versión de ti.</p>
                 </div>
                 <div class="col-md-5">
                     <img src="https://images.unsplash.com/21/mac-glasses.JPG?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
